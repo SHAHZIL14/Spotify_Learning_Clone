@@ -52,16 +52,16 @@ async function main() {
     top_Result_Rendering();
   }
 
-  function alert(textContent){
+  function alert(textContent) {
     Toastify({
       text: textContent,
       duration: 2500,
-      gravity: "top", 
+      gravity: "top",
       position: "center",
       backgroundColor: "#121212"
-    }).showToast();    
+    }).showToast();
   }
-  
+
 
   function top_Result_Rendering() {
     try {
@@ -157,10 +157,12 @@ async function main() {
     div.addEventListener('click', function (e) {
       let artistObject = null;
 
-      artistData.forEach((eachArtistObject) => {
-        let clickedSRC = e.target.src.slice(21).includes("%20") ? e.target.src.slice(21).replaceAll("%20", " ") : e.target.src.slice(21);
-        if (clickedSRC == eachArtistObject.poster) artistObject = eachArtistObject
-      });
+      if (artistData) {
+        artistData.forEach((eachArtistObject) => {
+          let clickedSRC = e.target.src.slice(21).includes("%20") ? e.target.src.slice(21).replaceAll("%20", " ") : e.target.src.slice(21);
+          if (clickedSRC == eachArtistObject.poster) artistObject = eachArtistObject
+        });
+      }
       createArtistDescriptionCard(artistObject);
     })
     parentDiv.appendChild(div);
