@@ -155,15 +155,20 @@ async function main() {
         </div>
         `
     div.addEventListener('click', function (e) {
+      let localArtistData = null;
       let artistObject = null;
-
-      if (artistData) {
-        artistData.forEach((eachArtistObject) => {
-          let clickedSRC = e.target.src.slice(21).includes("%20") ? e.target.src.slice(21).replaceAll("%20", " ") : e.target.src.slice(21);
-          if (clickedSRC == eachArtistObject.poster) artistObject = eachArtistObject
-        });
-      }
-      createArtistDescriptionCard(artistObject);
+      fetch("/resources/Data_Modules/artistData.json")
+        .then((response) => response.json())
+        .then((response) => {
+          localArtistData = response["artists"];
+          if (localArtistData) {
+            localArtistData.forEach((eachArtistObject) => {
+              let clickedSRC = e.target.src.slice(21).includes("%20") ? e.target.src.slice(21).replaceAll("%20", " ") : e.target.src.slice(21);
+              if (clickedSRC == eachArtistObject.poster) artistObject = eachArtistObject
+            });
+            createArtistDescriptionCard(artistObject);
+          }
+        })
     })
     parentDiv.appendChild(div);
   }
@@ -204,6 +209,10 @@ async function main() {
   }
 
   function createArtistDescriptionCard(artist) {
+    if (!artist || !artist.topSongs || !artist.genres) {
+      console.error("Invalid artist object:", artist);
+      return;
+    }
     const body = document.querySelector('body');
     let topSongs = " ";
     let genre = " ";
