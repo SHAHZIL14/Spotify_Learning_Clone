@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<!-- saved from url=(0022)http://127.0.0.1:5500/ -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>'Spotify - Web Player: Music for everyone'</title>
+    <link rel="stylesheet" href="./&#39;Spotify - Web Player_ Music for everyone&#39;_files/style.css">
+    <link rel="icon" type="image/x-icon" href="http://127.0.0.1:5500/Other%20resources/Fav%20icon/icons8-spotify-96-removebg-preview.png">
+</head>
+
+<body>
+    <!-- container-starts -->
+    <div class="container">
+
+
+        <!-- side-section-starts -->
+        <section class="side">
+
+
+            <!-- side-navigation-starts -->
+            <div class="navigation">
+
+                <div class="home-bar">
+                    <img class="svgs" src="./&#39;Spotify - Web Player_ Music for everyone&#39;_files/home-1-svgrepo-com.svg" alt="">
+                    <div class="home"><a href="http://127.0.0.1:5500/">Home</a></div>
+                </div>
+
+                <div class="search-bar">
+                    <img class="svgs" src="./&#39;Spotify - Web Player_ Music for everyone&#39;_files/search-circle-svgrepo-com.svg" alt="">
+                    <div class="search"> <a href="http://127.0.0.1:5500/">Search</a></div>
+                </div>
+            </div>
+            <!-- side-navigation-ends -->
+
+
+
+            <!-- side-library-starts -->
+            <div class="library">
+
+                <!-- header-starts -->
+                <div class="header">
+                    <div class="library-design">
+
+                        <div class="logo"> <img class="svgs" src="./&#39;Spotify - Web Player_ Music for everyone&#39;_files/library-svgrepo-com.svg" alt="">
+                        </div>
+                        <div class="lib" style="position: relative; bottom: 7px;">Your Library</div>
+
+
+
+
+                        <div class="plus"> <img class="svgs" src="./&#39;Spotify - Web Player_ Music for everyone&#39;_files/plus-sign-stroke-rounded.svg" alt="">
+                        </div>
+
+                        <div class="arrow"> <img class="svgs" src="./&#39;Spotify - Web Player_ Music for everyone&#39;_files/arrow-narrow-right-svgrepo-com (3).svg" alt="">
+                        </div>
+
+
+                    </div>
+                    <div class="header-navigation">
+                        <ul>
+                            <li class="library-header-navigation-list"> <a href="http://127.0.0.1:5500/"> playlist
+                                </a>
+                            </li>
+                            <li class="library-header-navigation-list"> <a href="http://127.0.0.1:5500/"> artist
+                                </a>
+                            </li>
+                            <li class="library-header-navigation-list"> <a href="http://127.0.0.1:5500/"> albums
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <!-- header-ends -->
+
+
+                <!-- playlist-starts -->
+                <div class="playlist">
+           
+                </div>
+                <!-- playlist-ends -->
+
+
+            </div>
+            <!-- siode-library-starts -->
+
+
+        </section>
+        <!-- side-section-ends -->
+
+
+        <!-- section-main-starts -->
+        <section class="main">
+
+        </section>
+        <!-- section-main-ends -->
+
+
+
+        <!-- container-ends -->
+    </div>
+
+
+    <!-- footer-starts -->
+    <div class="footer">
+
+    </div>
+    <!-- footer-ends -->
+
+    <!-- javascript-starts -->
+    <script src="./&#39;Spotify - Web Player_ Music for everyone&#39;_files/script.js.download"></script>
+    <!-- javascript-ends -->
+<!-- Code injected by live-server -->
+<script>
+	// <![CDATA[  <-- For SVG support
+	if ('WebSocket' in window) {
+		(function () {
+			function refreshCSS() {
+				var sheets = [].slice.call(document.getElementsByTagName("link"));
+				var head = document.getElementsByTagName("head")[0];
+				for (var i = 0; i < sheets.length; ++i) {
+					var elem = sheets[i];
+					var parent = elem.parentElement || head;
+					parent.removeChild(elem);
+					var rel = elem.rel;
+					if (elem.href && typeof rel != "string" || rel.length == 0 || rel.toLowerCase() == "stylesheet") {
+						var url = elem.href.replace(/(&|\?)_cacheOverride=\d+/, '');
+						elem.href = url + (url.indexOf('?') >= 0 ? '&' : '?') + '_cacheOverride=' + (new Date().valueOf());
+					}
+					parent.appendChild(elem);
+				}
+			}
+			var protocol = window.location.protocol === 'http:' ? 'ws://' : 'wss://';
+			var address = protocol + window.location.host + window.location.pathname + '/ws';
+			var socket = new WebSocket(address);
+			socket.onmessage = function (msg) {
+				if (msg.data == 'reload') window.location.reload();
+				else if (msg.data == 'refreshcss') refreshCSS();
+			};
+			if (sessionStorage && !sessionStorage.getItem('IsThisFirstTime_Log_From_LiveServer')) {
+				console.log('Live reload enabled.');
+				sessionStorage.setItem('IsThisFirstTime_Log_From_LiveServer', true);
+			}
+		})();
+	}
+	else {
+		console.error('Upgrade your browser. This Browser is NOT supported WebSocket for Live-Reloading.');
+	}
+	// ]]>
+</script>
+
+
+</body></html>

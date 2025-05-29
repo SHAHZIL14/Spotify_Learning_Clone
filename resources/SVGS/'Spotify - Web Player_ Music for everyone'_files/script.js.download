@@ -1,0 +1,7 @@
+async function main(){
+    let fetched = await fetch("http://127.0.0.1:5500/Songs/");
+    let parsed = await fetched.text();
+    console.log(parsed);
+    console.log("WROKED")
+}
+main();

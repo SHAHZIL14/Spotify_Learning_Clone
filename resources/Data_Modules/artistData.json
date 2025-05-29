@@ -1,0 +1,136 @@
+{
+  "artists": [
+    {
+      "name": "arijit singh",
+      "artist_work": "singer",
+      "poster": "/resources/SVGS/arijit.jpeg",
+      "topSongs": ["Tum Hi Ho", "Channa Mereya", "Kesariya"],
+      "monthlyListeners": "79M+",
+      "genres": ["Romantic", "Pop", "Classical"],
+      "awards": ["National Film Award", "6 Filmfare Awards"],
+      "activeYears": "2007–present",
+      "para": "Arijit Singh is one of India's most beloved playback singers, acclaimed for his emotive and soulful singing style. He began his career in 2005 and rose to fame with the hit \"Tum Hi Ho\" from Aashiqui 2. Since then, he has become the voice behind numerous Bollywood blockbusters, touching hearts with his music."
+    },
+    {
+      "name": "pritam",
+      "artist_work": "music director",
+      "poster": "/resources/SVGS/pritam.jpeg",
+      "topSongs": ["Ae Dil Hai Mushkil", "Kabira", "Subhanallah"],
+      "monthlyListeners": "10M+",
+      "genres": ["Bollywood", "Electronic", "Pop"],
+      "awards": ["IIFA Awards", "Zee Cine Awards"],
+      "activeYears": "2001–present",
+      "para": "Pritam is a celebrated Bollywood music director known for creating some of the most iconic soundtracks in Indian cinema. With a career spanning over two decades, he has consistently delivered chart-topping songs that blend traditional melodies with modern rhythms."
+    },
+    {
+      "name": "anirudh ravichander",
+      "artist_work": "music composer",
+      "poster": "/resources/SVGS/anirudh ravichander.jpeg",
+      "topSongs": ["Why This Kolaveri Di", "Arabic Kuthu", "Vaathi Coming"],
+      "monthlyListeners": "5.5M+",
+      "genres": ["Tamil Pop", "Electronic", "Fusion"],
+      "awards": ["Filmfare Awards South", "SIIMA Awards"],
+      "activeYears": "2011–present",
+      "para": "Anirudh Ravichander is a dynamic music composer in the Tamil film industry who gained overnight fame with the viral hit \"Why This Kolaveri Di\". His energetic and experimental soundtracks have made him a youth icon and a major trendsetter in South Indian music."
+    },
+    {
+      "name": "a r rehman",
+      "artist_work": "music composer",
+      "poster": "/resources/SVGS/download.jpeg",
+      "topSongs": ["Jai Ho", "Kun Faya Kun", "Tere Bina"],
+      "monthlyListeners": "6.5M+",
+      "genres": ["World", "Indian Classical", "Electronic"],
+      "awards": ["Academy Award", "Grammy", "BAFTA", "Padma Bhushan"],
+      "activeYears": "1992–present",
+      "para": "A.R. Rahman is an internationally acclaimed composer and music producer whose innovative sound has redefined Indian music. His Oscar-winning track \"Jai Ho\" brought him global fame, while his work in both Bollywood and Hollywood continues to inspire musicians worldwide."
+    },
+    {
+      "name": "shreya goshal",
+      "artist_work": "singer",
+      "poster": "/resources/SVGS/shreya.jpeg",
+      "topSongs": ["Teri Ore", "Sun Raha Hai", "Laung Da Lashkara"],
+      "monthlyListeners": "26M+",
+      "genres": ["Classical", "Folk", "Bollywood"],
+      "awards": ["4 National Film Awards", "7 Filmfare Awards"],
+      "activeYears": "2002–present",
+      "para": "Shreya Ghoshal is one of India's most respected and melodious playback singers. With a classically trained voice and versatility across genres, she has become a staple in Bollywood and regional film industries, earning numerous accolades for her vocal performances."
+    },
+    {
+      "name": "vishal mishra",
+      "artist_work": "singer-composer",
+      "poster": "/resources/SVGS/vishaal.jpeg",
+      "topSongs": ["Kaise Hua", "Phir Bhi Tumko Chaahunga", "Zihaal-e-Miskin"],
+      "monthlyListeners": "6M+",
+      "genres": ["Pop", "Romantic", "Bollywood"],
+      "awards": ["IIFA", "Mirchi Music Award (Nominations)"],
+      "activeYears": "2015–present",
+      "para": "Vishal Mishra is a rising singer-composer known for his emotional melodies and heartfelt compositions. His soulful voice and simple yet powerful tunes have resonated with a younger audience, establishing him as a prominent voice in contemporary Bollywood music."
+    },
+    {
+      "name": "tanishq bagchi",
+      "artist_work": "music composer",
+      "poster": "/resources/SVGS/tanishq.jpeg",
+      "topSongs": ["Lut Gaye", "Raataan Lambiyan", "Tip Tip"],
+      "monthlyListeners": "8M+",
+      "genres": ["Bollywood", "Dance", "Electronic"],
+      "awards": ["IIFA Award for Best Music Director"],
+      "activeYears": "2014–present",
+      "para": "Tanishk Bagchi is a prolific music composer known for his high-energy remixes and catchy original compositions. He has become one of the most sought-after musicians in Bollywood, producing hit after hit across a variety of genres including dance, pop, and romance."
+    },
+    {
+      "name": "raghav chaitaniya",
+      "artist_work": "singer",
+      "poster": "/resources/SVGS/raaghav.jpeg",
+      "topSongs": ["Tera Naam", "Dil"],
+      "monthlyListeners": "500K+",
+      "genres": ["Romantic", "Pop"],
+      "awards": ["None notable yet"],
+      "activeYears": "2020–present",
+      "para": "Raghav Chaitanya is a new voice in the Indian music scene known for his soft and romantic numbers. With a smooth vocal style and emotional delivery, he is gradually building a name for himself among fans of mellow and heartfelt music."
+    },
+    {
+      "name": "darshan raval",
+      "artist_work": "singer",
+      "poster": "/resources/SVGS/darshan.jpeg",
+      "topSongs": ["Tera Zikr", "Chogada", "Bekhudi"],
+      "monthlyListeners": "11M+",
+      "genres": ["Romantic", "Pop"],
+      "awards": ["Mirchi Music Awards (Nominations)"],
+      "activeYears": "2014–present",
+      "para": "Darshan Raval is a multi-talented singer and songwriter with a distinct voice that has earned him a massive fanbase. Known for romantic ballads and festive tracks alike, his music strikes a balance between youthful charm and emotional depth."
+    },
+    {
+      "name": "king",
+      "artist_work": "rapper-singer",
+      "poster": "/resources/SVGS/king.jpeg",
+      "topSongs": ["Tu Aake Dekhle", "Maan Meri Jaan", "Oops"],
+      "monthlyListeners": "10M+",
+      "genres": ["Rap", "Hip-hop", "Pop"],
+      "awards": ["MTV Hustle Star"],
+      "activeYears": "2019–present",
+      "para": "King is a rising star in India’s hip-hop and pop scene, known for blending emotional themes with modern beats. He broke through with MTV Hustle and has since become a household name with viral hits that appeal to the youth."
+    },
+    {
+      "name": "Shilpa rao",
+      "artist_work": "singer",
+      "poster": "/resources/SVGS/shilpa rao.jpeg",
+      "topSongs": ["Ghungroo", "Bulleya", "Javeda Zindagi"],
+      "monthlyListeners": "3.5M+",
+      "genres": ["Classical", "Bollywood", "Fusion"],
+      "awards": ["Filmfare Award", "IIFA Award (Nominated)"],
+      "activeYears": "2007–present",
+      "para": "Shilpa Rao is known for her versatile singing style that bridges classical depth with contemporary flair. Her voice has enhanced many Bollywood soundtracks with a signature mix of power and sensitivity that appeals to a wide audience."
+    },
+    {
+      "name": "jonita gandhi",
+      "artist_work": "singer",
+      "poster": "/resources/SVGS/jonita.jpeg",
+      "topSongs": ["The Breakup Song", "Arabic Kuthu (female)", "Sau Tarah Ke"],
+      "monthlyListeners": "3.2M+",
+      "genres": ["Pop", "R&B", "Bollywood"],
+      "awards": ["Mirchi Music Awards (Nominations)"],
+      "activeYears": "2011–present",
+      "para": "Jonita Gandhi is a Canadian-Indian singer who has made waves in Bollywood and beyond. Her stylish vocals and global appeal have earned her a dedicated fanbase, as she continues to innovate across genres like pop, R&B, and electronic fusion."
+    }
+  ]
+}

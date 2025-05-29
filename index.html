@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>'Spotify - Web Player: Music for everyone'</title>
+        <link rel="stylesheet" href="src/style.css" />
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css" />
+        <link rel="icon" type="image/x-icon" href="resources/Fav icon/icons8-spotify-96-removebg-preview.png" />
+    </head>
+
+    <body>
+        <!-- container-starts -->
+        <div class="container">
+            <!-- side-section-starts -->
+            <section class="side">
+                <!-- side-navigation-starts -->
+                <div class="navigation">
+                    <div class="home-bar">
+                        <img class="svgs" src="resources/SVGS/home-1-svgrepo-com.svg" alt="" />
+                        <div class="home">Home</div>
+                    </div>
+
+                    <div class="search-bar">
+                        <img class="svgs" src="resources/SVGS/search-circle-svgrepo-com.svg" alt="" />
+                        <div class="search">Search</div>
+                    </div>
+                </div>
+                <!-- side-navigation-ends -->
+
+                <!-- side-library-starts -->
+                <div class="library">
+                    <!-- header-starts -->
+                    <div class="header">
+                        <div class="library-design">
+                            <div class="logo"><img class="svgs" src="resources/SVGS/library-svgrepo-com.svg" alt="" /></div>
+                            <div class="lib" style="position: relative; bottom: 7px;">Your Library</div>
+
+                            <div class="plus"><img class="svgs" src="resources/SVGS/plus-sign-stroke-rounded.svg" alt="" /></div>
+
+                            <div class="arrow"><img class="svgs" src="resources/SVGS/arrow-narrow-right-svgrepo-com_(3).svg" alt="" /></div>
+                        </div>
+                        <div class="header-navigation">
+                            <ul>
+                                <li class="library-header-navigation-list"><a href=""> playlist </a></li>
+                                <li class="library-header-navigation-list"><a href=""> artist </a></li>
+                                <li class="library-header-navigation-list"><a href=""> albums </a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- header-ends -->
+
+                    <!-- playlist-starts -->
+                    <div class="playlist">
+                        <div class="songlist">
+                            <ul class="songUl"></ul>
+                        </div>
+                    </div>
+                    <!-- playlist-ends -->
+                </div>
+                <!-- siode-library-starts -->
+            </section>
+            <!-- side-section-ends -->
+
+            <!-- section-main-starts -->
+            <section class="main">
+                <div class="home-page">
+                    <div class="search-navigation">
+                        <ul id="search-navigation-ul">
+                            <ul id="first-li">
+                                <li>
+                                    <a href=""><img class="svgs-nav" src="resources/SVGS/arrow-left-01-stroke-rounded.svg" alt="" /></a>
+                                </li>
+                                <li>
+                                    <a href=""><img class="svgs-nav" src="resources/SVGS/arrow-right-01-stroke-rounded.svg" alt="" /></a>
+                                </li>
+                            </ul>
+
+                            <ul id="second-li">
+                                <li style="">
+                                    <a href="https://www.spotify.com/in-en/download/windows/" target="_blank" id="install-app">
+                                        <p>Install App</p>
+                                        <img class="svgs-nav" src="resources/SVGS/download-circle-01-stroke-rounded.svg" alt="" />
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href=""><img class="svgs-nav" src="resources/SVGS/notification-bell-svgrepo-com.svg" alt="" /></a>
+                                </li>
+                                <li><a href=""></a></li>
+                            </ul>
+                        </ul>
+                    </div>
+
+                    <div class="made4you">
+                        <h2>Made for you</h2>
+                        <div class="made-container">
+                            <div class="made-box-card">
+                                <div class="made_poster">
+                                    <p class="made-p">Daily Mix</p>
+                                </div>
+                                <div class="made-content">
+                                    <h3>Daily Mix 1</h3>
+                                    <p class="content-p">Catch all the latest songs Lorem ipsum dolor</p>
+                                </div>
+                            </div>
+                            <div class="made-box-card">
+                                <div class="made_poster">
+                                    <p class="made-p">Daily Mix</p>
+                                </div>
+                                <div class="made-content">
+                                    <h3>Daily Mix 2</h3>
+                                    <p class="content-p">Catch all the latest songs Lorem ipsum dolor</p>
+                                </div>
+                            </div>
+                            <div class="made-box-card">
+                                <div class="made_poster">
+                                    <p class="made-p">Daily Mix</p>
+                                </div>
+                                <div class="made-content">
+                                    <h3>Daily Mix 3</h3>
+                                    <p class="content-p">Catch all the latest songs Lorem ipsum dolor</p>
+                                </div>
+                            </div>
+                            <div class="made-box-card">
+                                <div class="made_poster">
+                                    <p class="made-p">Daily Mix</p>
+                                </div>
+                                <div class="made-content">
+                                    <h3>Daily Mix 4</h3>
+                                    <p class="content-p">Catch all the latest songs Lorem ipsum dolor</p>
+                                </div>
+                            </div>
+                            <div class="made-box-card">
+                                <div class="made_poster">
+                                    <p class="made-p">Daily Mix</p>
+                                </div>
+                                <div class="made-content">
+                                    <h3>Daily Mix 5</h3>
+                                    <p class="content-p">Catch all the latest songs Lorem ipsum dolor</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- recently played section  -->
+
+                    <div class="recent-section">
+                        <h2>Recently Played</h2>
+                        <div class="recent-container">
+                            <p>Nothing played recently</p>
+                        </div>
+                    </div>
+
+                    <!-- recently played section  -->
+                </div>
+                <!-- made 4 you -->
+
+                <div class="search-html">
+                    <div class="search-navigation">
+                        <ul id="search-navigation-ul">
+                            <ul id="first-li">
+                                <li>
+                                    <a href=""><img class="svgs-nav" src="resources/SVGS/arrow-left-01-stroke-rounded.svg" alt="" /></a>
+                                </li>
+                                <li>
+                                    <a href=""><img class="svgs-nav" src="resources/SVGS/arrow-right-01-stroke-rounded.svg" alt="" /></a>
+                                </li>
+                                <li id="searchbox1">
+                                    <div class="svgs1"><img src="resources/SVGS/search-01-stroke-rounded.svg" alt="" /></div>
+                                    <input type="text" autocomplete="off" id="searchbox" placeholder="What do you want to play?" />
+                                </li>
+                            </ul>
+
+                            <ul id="second-li">
+                                <li style="">
+                                    <a href="https://www.spotify.com/in-en/download/windows/" target="_blank" id="install-app">
+                                        <p>Install App</p>
+                                        <img class="svgs-nav" src="resources/SVGS/download-circle-01-stroke-rounded.svg" alt="" />
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href=""><img class="svgs-nav" src="resources/SVGS/notification-bell-svgrepo-com.svg" alt="" /></a>
+                                </li>
+                                <li><a href=""></a></li>
+                            </ul>
+                        </ul>
+                    </div>
+                    <div id="default">
+                        <h2>Browse All</h2>
+                        <div class="browse-section"></div>
+                    </div>
+
+                    <div class="unavailable">
+                        <p>sorry!!, no appropriate result found.</p>
+                    </div>
+                    <div class="main-content">
+                        <div id="searchup">
+                            <div id="topResultingNew" class="top-result main-content-section">
+                                <h2 class="Headings">Top results</h2>
+                                <div id="grandParent"></div>
+                            </div>
+
+                            <div class="songs main-content-section">
+                                <h2 class="Headings">Songs</h2>
+                                <div class="card-list">
+                                    <ul id="card-listing-ul"></ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="artist-card-section"></div>
+                </div>
+            </section>
+            <!-- section-main-ends -->
+
+            <!-- container-ends -->
+        </div>
+
+        <!-- footer-starts -->
+        <div class="footer">
+            <div class="sections" id="song-about">
+                No Song Loaded!!!
+            </div>
+            <div class="sections" id="seeksection">
+                <div class="song-navigation">
+                    <div class="svgs previous hover"><img src="resources/SVGS/previous-stroke-rounded.svg" alt="" /></div>
+                    <div class="svgs Play hover"><img src="resources/SVGS/play-stroke-rounded.svg" alt="" /></div>
+                    <div class="svgs Next hover"><img src="resources/SVGS/next-stroke-rounded.svg" alt="" /></div>
+                    <div class="svgs loop1 hover"><img src="resources/SVGS/arrow-reload-horizontal-stroke-rounded.svg" alt="" /></div>
+                </div>
+                <div class="seek">
+                    <div id="current-time">00:00</div>
+                    <div class="seekbar">
+                        <div id="seek-rocker"></div>
+                    </div>
+                    <div id="current-duration">00:00</div>
+                </div>
+            </div>
+            <div class="sections" id="volume-button">
+                <div class="svgs-speaker"><img class="svgs" src="resources/SVGS/volume-high-stroke-rounded.svg" alt="" /></div>
+                <div class="slidecontainer">
+                    <input type="range" min="0" max="100" value="50" step="1" class="slider" id="myRange" />
+                    <p><span id="demo"></span></p>
+                </div>
+            </div>
+        </div>
+        <!-- footer-ends -->
+
+        <!-- javascript-starts -->
+        <script type="module" src="src/script.js"></script>
+        <!-- CDN -->
+
+        <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+
+        <!-- javascript-ends -->
+    </body>
+</html>
