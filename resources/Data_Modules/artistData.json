@@ -25,7 +25,7 @@
     {
       "name": "anirudh ravichander",
       "artist_work": "music composer",
-      "poster": "/resources/SVGS/anirudh ravichander.jpeg",
+      "poster": "/resources/SVGS/anirudh.jpeg",
       "topSongs": ["Why This Kolaveri Di", "Arabic Kuthu", "Vaathi Coming"],
       "monthlyListeners": "5.5M+",
       "genres": ["Tamil Pop", "Electronic", "Fusion"],
@@ -113,7 +113,7 @@
     {
       "name": "Shilpa rao",
       "artist_work": "singer",
-      "poster": "/resources/SVGS/shilpa rao.jpeg",
+      "poster": "/resources/SVGS/shilpa.jpeg",
       "topSongs": ["Ghungroo", "Bulleya", "Javeda Zindagi"],
       "monthlyListeners": "3.5M+",
       "genres": ["Classical", "Bollywood", "Fusion"],
