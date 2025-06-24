@@ -89,7 +89,7 @@ function mainMobile() {
           <div class="song-name">${songName}</div>
         </div>
         <div class="playbutton">
-          <img class="svgs-new" src="/resources/SVGS/play-circle-svgrepo-com.svg" alt="">
+          <img loading="lazy" class="svgs-new" src="/resources/SVGS/play-circle-svgrepo-com.svg" alt="">
         </div>
       `;
 
@@ -183,7 +183,7 @@ function mainMobile() {
         newLi.setAttribute("id", index);
         newLi.innerHTML = `
           <div class="li-flex">
-          <img src="./resources/Posters/${song.poster}" alt=""
+          <img loading="lazy" src="./resources/Posters/${song.poster}" alt=""
               class="card-list-img">
           <div class="card-list-details marquee-container">
               <div class="song-name">${song.songName.replace(".mp3", "")}</div>
@@ -219,7 +219,7 @@ function mainMobile() {
       const div = document.createElement('div');
       div.setAttribute("class", "artist-card");
       div.innerHTML = `
-          <div class="artist-image"><img src="${artist.poster}" alt=""></div>
+          <div class="artist-image"><img loading = "lazy" src="${artist.poster}" alt=""></div>
           <div class="text">
               <div class="artist-name">${artist.name}</div>
               <div class="artist-text">${artist.artist_work}</div>
@@ -243,7 +243,7 @@ function mainMobile() {
       const parentDiv = document.createElement('div');
       parentDiv.setAttribute('class', 'song-card');
       parentDiv.innerHTML = `
-          <img id ="topResultImage"src="/resources/Posters/${song.poster}" alt="Song Cover">
+          <img loading="lazy" id ="topResultImage"src="/resources/Posters/${song.poster}" alt="Song Cover">
           <div class="song-details marquee-container">
               <h1 class="gaane marquee-text">${song.songName.replace(".mp3", "")}</h1>
               <div class="artist-name marquee-container">
@@ -354,7 +354,7 @@ function mainMobile() {
         newDiv.setAttribute('class', 'browse-all-cards');
         newDiv.innerHTML = `
               <p class="genre">${currentDataCard.title}</p>
-              <img class="rotate-img" src="${currentDataCard.image}" alt="">
+              <img loading="lazy" class="rotate-img" src="${currentDataCard.image}" alt="">
               `
         browseSection.appendChild(newDiv);
       }
@@ -506,7 +506,7 @@ function mainMobile() {
       document.getElementById("song-about").innerHTML = `
       <div id="song-name" data-song-id = ${index}>
         <div class="poster">
-          <img class="svgs1" src="/resources/Posters/${data[index].poster}" alt="">
+          <img loading="lazy" class="svgs1" src="/resources/Posters/${data[index].poster}" alt="">
         </div>
         <div class="marquee-container content">
           <div class="song-name-poster marquee-text">${songs[index].replace(".mp3", "")}</div>
@@ -580,7 +580,7 @@ function mainMobile() {
         card.innerHTML = `
               <div class="song-carding">
                 <div class="poster-song">
-                  <img src="/resources/Posters/${(data[index].poster)}" alt="">
+                  <img loading="lazy" src="/resources/Posters/${(data[index].poster)}" alt="">
                 </div>
                 <div class="about-song-card">${(songs[index].replace(".mp3", "").split("(")[0])}</div>
               </div>
@@ -607,11 +607,11 @@ function mainMobile() {
         controllerPage.innerHTML = `
         <div class="player">
         <div class="header-controller">
-          <span ><img id="close-controller" height="10px" src = "/resources/svgs/close.svg"/></span>
+          <span ><img loading="lazy" id="close-controller" height="10px" src = "/resources/svgs/close.svg"/></span>
           <p class="song-info">2000's Gold</p>
           <span>⋯</span>
         </div>
-        <img src="/resources/Posters/${data[currentSongIndex].poster}"} alt="Album Art" class="album-art">
+        <img loading="lazy" src="/resources/Posters/${data[currentSongIndex].poster}"} alt="Album Art" class="album-art">
         <div class="song-details-player">
           <h2>${data[currentSongIndex].songName.split('.mp3')[0]}</span></h2>
           <p>${data[currentSongIndex].artist}</p>
@@ -980,7 +980,7 @@ function mainLaptop() {
         <div class="song-name">${songName}</div>
       </div>
       <div class="playbutton">
-        <img class="svgs-new" src="/resources/SVGS/play-circle-svgrepo-com.svg" alt="">
+        <img loading="lazy" class="svgs-new" src="/resources/SVGS/play-circle-svgrepo-com.svg" alt="">
       </div>
     `;
 
@@ -1011,7 +1011,7 @@ function mainLaptop() {
           const div = document.createElement('div');
           div.setAttribute('class', 'song-card');
           div.innerHTML = `
-            <img src="./resources/Posters/${song.poster}" alt="Song Cover">
+            <img loading="lazy" src="./resources/Posters/${song.poster}" alt="Song Cover">
             <div class="song-details">
                 <h1 class="gaane">${song.songName}</h1>
                 <div class="artist-name">
@@ -1052,7 +1052,7 @@ function mainLaptop() {
         newLi.setAttribute("id", index);
         newLi.innerHTML = `
         <div class="li-flex">
-        <img src="./resources/Posters/${song.poster}" alt=""
+        <img loading="lazy" src="./resources/Posters/${song.poster}" alt=""
             class="card-list-img">
         <div class="card-list-details">
             <div class="song-name">${song.songName.replace(".mp3", "")}</div>
@@ -1088,7 +1088,7 @@ function mainLaptop() {
       const div = document.createElement('div');
       div.setAttribute("class", "artist-card");
       div.innerHTML = `
-        <div class="artist-image"><img src="${artist.poster}" alt=""></div>
+        <div class="artist-image"><img loading="lazy" src="${artist.poster}" alt=""></div>
         <div class="text">
             <div class="artist-name">${artist.name}</div>
             <div class="artist-text">${artist.artist_work}</div>
@@ -1119,7 +1119,7 @@ function mainLaptop() {
       const parentDiv = document.createElement('div');
       parentDiv.setAttribute('class', 'song-card');
       parentDiv.innerHTML = `
-        <img id ="topResultImage"src="/resources/Posters/${song.poster}" alt="Song Cover">
+        <img loading="lazy" id ="topResultImage"src="/resources/Posters/${song.poster}" alt="Song Cover">
         <div class="song-details">
             <h1 class="gaane">${song.songName.replace(".mp3", "")}</h1>
             <div class="artist-name">
@@ -1162,7 +1162,7 @@ function mainLaptop() {
       artistDescriptionCard.setAttribute('class', 'artist-float-card');
       artistDescriptionCard.innerHTML = `
     <span id="close-card" class="close-btn" >×</span>
-  <img src="${artist.poster}" alt="Arijit Singh">
+  <img loading="lazy" src="${artist.poster}" alt="Arijit Singh">
   <div class="artist-details">
     <h2>${capitalizeWords(artist.name)}</h2>
     <p>${artist.para}</p>
@@ -1208,7 +1208,7 @@ function mainLaptop() {
         newDiv.setAttribute('class', 'browse-all-cards');
         newDiv.innerHTML = `
             <p class="genre">${currentDataCard.title}</p>
-            <img class="rotate-img" src="${currentDataCard.image}" alt="">
+            <img loading="lazy" class="rotate-img" src="${currentDataCard.image}" alt="">
             `
         browseSection.appendChild(newDiv);
       }
@@ -1357,7 +1357,7 @@ function mainLaptop() {
       document.getElementById("song-about").innerHTML = `
     <div id="song-name">
       <div class="poster">
-        <img class="svgs1" src="/resources/Posters/${data[index].poster}" alt="">
+        <img loading = "lazy" class="svgs1" src="/resources/Posters/${data[index].poster}" alt="">
       </div>
       <div class="content">
         <div class="song-name-poster">${songs[index].replace(".mp3", "")}</div>
@@ -1387,7 +1387,7 @@ function mainLaptop() {
         card.innerHTML = `
             <div class="song-carding">
               <div class="poster-song">
-                <img src="/resources/Posters/${(data[index].poster)}" alt="">
+                <img loading="lazy" src="/resources/Posters/${(data[index].poster)}" alt="">
               </div>
               <div class="about-song-card">${songs[index].replace(".mp3", "")}</div>
             </div>
