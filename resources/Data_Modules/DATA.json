@@ -3,282 +3,329 @@
     "id": 0,
     "songName": "Apna Bana Le.mp3",
     "poster": "apna_bana_le.jpeg",
-    "artist": "Arijit Singh"
+    "artist": "Arijit Singh",
+    "duration": "03:24"
   },
   {
     "id": 1,
     "songName": "Arabic Kuthu.mp3",
-    "poster": "arabic_kuthu.jpg",
-    "artist": "Anirudh Ravichander and Jonita Gandhi"
+    "poster": "arabic_kuthu.jpeg",
+    "artist": "Anirudh Ravichander and Jonita Gandhi",
+    "duration": "04:41"
   },
   {
     "id": 2,
     "songName": "Badass-Leo.mp3",
     "poster": "badass_leo.jpeg",
-    "artist": "Anirudh Ravichander"
+    "artist": "Anirudh Ravichander",
+    "duration": "03:55"
   },
   {
     "id": 3,
     "songName": "Besharam Rang.mp3",
-    "poster": "besharam_rang.jpg",
-    "artist": "Shilpa Rao"
+    "poster": "besharam_rang.jpeg",
+    "artist": "Shilpa Rao",
+    "duration": "03:13"
   },
   {
     "id": 4,
     "songName": "Bhool Bhulaiya.mp3",
     "poster": "bhool_bhulaiya.jpeg",
-    "artist": "Tanishk Bagchi"
+    "artist": "Tanishk Bagchi",
+    "duration": "03:35"
   },
   {
     "id": 5,
     "songName": "Billi Billi.mp3",
     "poster": "billi_billi.jpeg",
-    "artist": "Sukhbir, Kumaar"
+    "artist": "Sukhbir, Kumaar",
+    "duration": "03:34"
   },
   {
     "id": 6,
     "songName": "Chaleya.mp3",
     "poster": "chaleya.jpeg",
-    "artist": "Arijit Singh, Shilpa Rao"
+    "artist": "Arijit Singh, Shilpa Rao",
+    "duration": "03:08"
   },
   {
     "id": 7,
     "songName": "Deewaane (Selfiee).mp3",
     "poster": "deewaane.jpeg",
-    "artist": "Aditya Yadav, Tanishk Bagchi"
+    "artist": "Aditya Yadav, Tanishk Bagchi",
+    "duration": "03:35"
   },
   {
     "id": 8,
     "songName": "Heer Aasmani.mp3",
     "poster": "heer_aasmani.jpeg",
-    "artist": "Vishal Dadlani, Shekhar Ravjiani"
+    "artist": "Vishal Dadlani, Shekhar Ravjiani",
+    "duration": "02:33"
   },
   {
     "id": 9,
     "songName": "Heeriye.mp3",
     "poster": "heeriye.jpeg",
-    "artist": "Jasleen Royal, Arijit Singh"
+    "artist": "Jasleen Royal, Arijit Singh",
+    "duration": "03:19"
   },
   {
     "id": 10,
     "songName": "Hua Main.mp3",
     "poster": "hua_main.jpeg",
-    "artist": "Raghav Chaitanya, Jonita Gandhi"
+    "artist": "Raghav Chaitanya, Jonita Gandhi",
+    "duration": "04:57"
   },
   {
     "id": 11,
     "songName": "Jannat Ve.mp3",
     "poster": "jannat_ve.jpeg",
-    "artist": "Darshan Raval"
+    "artist": "Darshan Raval",
+    "duration": "03:55"
   },
   {
     "id": 12,
     "songName": "Jhoome Jo Pathaan.mp3",
     "poster": "jhoome_jo_pathaan.jpeg",
-    "artist": "Arijit Singh, Sukriti Kakar"
+    "artist": "Arijit Singh, Sukriti Kakar",
+    "duration": "03:22"
   },
   {
     "id": 13,
     "songName": "Kahani Suno.mp3",
     "poster": "kahani_suno.jpeg",
-    "artist": "Kaifi Khalil"
+    "artist": "Kaifi Khalil",
+    "duration": "02:53"
   },
   {
     "id": 14,
     "songName": "Kesariya.mp3",
-    "poster": "kesariya.jpg",
-    "artist": "Arijit Singh"
+    "poster": "kesariya.jpeg",
+    "artist": "Arijit Singh",
+    "duration": "02:52"
   },
   {
     "id": 15,
     "songName": "Khushi Title.mp3",
-    "poster": "khushi-title.jpeg",
-    "artist": "Hesham Abdul Wahab"
+    "poster": "khushi_title.jpeg",
+    "artist": "Hesham Abdul Wahab",
+    "duration": "03:41"
   },
   {
     "id": 16,
     "songName": "King Of Kotha.mp3",
     "poster": "king_of_kotha.jpeg",
-    "artist": "Jakes Bejoy"
+    "artist": "Jakes Bejoy",
+    "duration": "04:16"
   },
   {
     "id": 17,
     "songName": "Leo Naa Ready.mp3",
     "poster": "leo_naa_ready.jpeg",
-    "artist": "Anirudh Ravichander"
+    "artist": "Anirudh Ravichander",
+    "duration": "04:14"
   },
   {
     "id": 18,
     "songName": "Maan Meri Jaan.mp3",
-    "poster": "maan_meri_jaan.jpg",
-    "artist": "King"
+    "poster": "maan_meri_jaan.jpeg",
+    "artist": "King",
+    "duration": "04:18"
   },
   {
     "id": 19,
     "songName": "Mahiye Jinna Sohna.mp3",
-    "poster": "mahiye_jinna_sohna.jpeg",
-    "artist": "Jubin Nautiyal"
+    "poster": "mahiye_jinha_sohna.jpeg",
+    "artist": "Jubin Nautiyal",
+    "duration": "03:05"
   },
   {
     "id": 20,
     "songName": "Malang Sajna.mp3",
     "poster": "malang_sajna.jpeg",
-    "artist": "Sachet Tandon, Parampara Thakur"
+    "artist": "Sachet Tandon, Parampara Thakur",
+    "duration": "02:37"
   },
   {
     "id": 21,
     "songName": "Manike.mp3",
     "poster": "manike.jpeg",
-    "artist": "Yohani, Jubin Nautiyal"
+    "artist": "Yohani, Jubin Nautiyal",
+    "duration": "03:58"
   },
   {
     "id": 22,
     "songName": "Muqabla.mp3",
     "poster": "muqabla.jpeg",
-    "artist": "Yash Narvekar, Parampara Thakur"
+    "artist": "Yash Narvekar, Parampara Thakur",
+    "duration": "03:02"
   },
   {
     "id": 23,
     "songName": "Naach Meri Rani.mp3",
     "poster": "naach_meri_rani.jpeg",
-    "artist": "Guru Randhawa, Nikhita Gandhi"
+    "artist": "Guru Randhawa, Nikhita Gandhi",
+    "duration": "03:42"
   },
   {
     "id": 24,
     "songName": "Naiyo Lagda.mp3",
     "poster": "naiyo_lagda.jpeg",
-    "artist": "Palak Muchhal, Kamaal Khan"
+    "artist": "Palak Muchhal, Kamaal Khan",
+    "duration": "03:55"
   },
   {
     "id": 25,
     "songName": "O Bedardeya.mp3",
     "poster": "o_bedardeya.jpeg",
-    "artist": "Arijit Singh"
+    "artist": "Arijit Singh",
+    "duration": "05:32"
   },
   {
     "id": 26,
     "songName": "Oo Antava.mp3",
     "poster": "oo_antava.jpeg",
-    "artist": "Indravathi Chauhan"
+    "artist": "Indravathi Chauhan",
+    "duration": "03:47"
   },
   {
     "id": 27,
     "songName": "Param Sundari.mp3",
     "poster": "param_sundari.jpeg",
-    "artist": "Shreya Ghoshal"
+    "artist": "Shreya Ghoshal",
+    "duration": "03:00"
   },
   {
     "id": 28,
     "songName": "Pasoori.mp3",
     "poster": "pasoori.jpeg",
-    "artist": "Ali Sethi, Shae Gill"
+    "artist": "Ali Sethi, Shae Gill",
+    "duration": "04:36"
   },
   {
     "id": 29,
     "songName": "Pehle Bhi Main.mp3",
     "poster": "pehle_bhi_main.jpeg",
-    "artist": "Vishal Mishra"
+    "artist": "Vishal Mishra",
+    "duration": "04:08"
   },
   {
     "id": 30,
     "songName": "Phir Aur Kya Chahiye.mp3",
     "poster": "phir_aur_kya_chahiye.jpeg",
-    "artist": "Arijit Singh"
+    "artist": "Arijit Singh",
+    "duration": "03:35"
   },
   {
     "id": 31,
-    "songName": "Pushpa Saami Saami.mp3",
+    "songName": "Saami Saami.mp3",
     "poster": "saami_saami.jpeg",
-    "artist": "Sunidhi Chauhan, Devi Sri Prasad"
+    "artist": "Sunidhi Chauhan, Devi Sri Prasad",
+    "duration": "03:13"
   },
   {
     "id": 32,
     "songName": "Pyaar Hota Kayi Baar Hai.mp3",
     "poster": "pyaar_hota_kayi_baar_hai.jpeg",
-    "artist": "Arijit Singh"
+    "artist": "Arijit Singh",
+    "duration": "03:03"
   },
   {
     "id": 33,
     "songName": "Ramaiya Vastavaiya.mp3",
     "poster": "ramaiya_vastavaiya.jpeg",
-    "artist": "Neeti Mohan, Mika Singh"
+    "artist": "Neeti Mohan, Mika Singh",
+    "duration": "02:50"
   },
   {
     "id": 34,
     "songName": "Ranjha.mp3",
     "poster": "ranjha.jpeg",
-    "artist": "B Praak, Jasleen Royal"
+    "artist": "B Praak, Jasleen Royal",
+    "duration": "03:50"
   },
   {
     "id": 35,
     "songName": "Ruaan.mp3",
     "poster": "ruaan.jpeg",
-    "artist": "Arijit Singh"
+    "artist": "Arijit Singh",
+    "duration": "03:06"
   },
   {
     "id": 36,
     "songName": "Saki Saki.mp3",
     "poster": "saki_saki.jpeg",
-    "artist": "Tulsi Kumar, Neha Kakkar, B Praak"
+    "artist": "Tulsi Kumar, Neha Kakkar, B Praak",
+    "duration": "02:19"
   },
   {
     "id": 37,
     "songName": "Tere Pyaar Mein.mp3",
     "poster": "tere_pyaar_mein.jpeg",
-    "artist": "Arijit Singh, Nikhita Gandhi"
+    "artist": "Arijit Singh, Nikhita Gandhi",
+    "duration": "02:57"
   },
   {
     "id": 38,
     "songName": "Tere Vaaste.mp3",
     "poster": "tere_vaaste.jpeg",
-    "artist": "Varun Jain, Shadab Faridi, Altamash Faridi"
+    "artist": "Varun Jain, Shadab Faridi, Altamash Faridi",
+    "duration": "03:01"
   },
   {
     "id": 39,
     "songName": "Teri Aankhon Mein.mp3",
     "poster": "teri_aankhon_mein.jpeg",
-    "artist": "Dhvani Bhanushali, Darshan Raval"
+    "artist": "Dhvani Bhanushali, Darshan Raval",
+    "duration": "06:35"
   },
   {
     "id": 40,
     "songName": "THAA.mp3",
     "poster": "thaa.jpeg",
-    "artist": "Hesham Abdul Wahab"
+    "artist": "Hesham Abdul Wahab",
+    "duration": "03:20"
   },
   {
     "id": 41,
     "songName": "Tur Kalleyan.mp3",
     "poster": "tur_kalleyan.jpeg",
-    "artist": "Arijit Singh, Shadab Faridi, Shashwat Singh"
+    "artist": "Arijit Singh, Shadab Faridi, Shashwat Singh",
+    "duration": "05:38"
   },
   {
     "id": 42,
     "songName": "Vaaste.mp3",
     "poster": "vaaste.jpeg",
-    "artist": "Dhvani Bhanushali"
+    "artist": "Dhvani Bhanushali",
+    "duration": "04:26"
   },
   {
     "id": 43,
     "songName": "Pathala Pathala.mp3",
     "poster": "vikram_pathshaala.jpeg",
-    "artist": "Anirudh Ravichander, Kamal Haasan"
+    "artist": "Anirudh Ravichander, Kamal Haasan",
+    "duration": "02:48"
   },
   {
     "id": 44,
     "songName": "What Jhumka.mp3",
     "poster": "what_jhumka.jpeg",
-    "artist": "Arijit Singh, Jonita Gandhi"
+    "artist": "Arijit Singh, Jonita Gandhi",
+    "duration": "02:32"
   },
   {
     "id": 45,
     "songName": "Zaalima Coca Cola.mp3",
     "poster": "zaalima_coca_cola.jpeg",
-    "artist": "Shreya Ghoshal"
+    "artist": "Shreya Ghoshal",
+    "duration": "02:31"
   },
   {
     "id": 46,
     "songName": "Zinda Banda.mp3",
     "poster": "zinda_banda.jpeg",
-    "artist": "Anirudh Ravichander"
+    "artist": "Anirudh Ravichander",
+    "duration": "03:45"
   }
 ]

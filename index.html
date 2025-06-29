@@ -8,9 +8,45 @@
     <link rel="stylesheet" href="src/style.css" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css" />
     <link rel="icon" type="image/x-icon" href="resources/Fav icon/icons8-spotify-96-removebg-preview.png" />
+    <style>
+        #loader-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+        }
+
+        #loader-overlay.show {
+            display: flex;
+        }
+
+        .loader {
+            width: 50px;
+            height: 50px;
+            border: 6px solid #ddd;
+            border-top: 6px solid rgb(0, 170, 0);
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+    </style>
 </head>
 
 <body>
+    <div id="loader-overlay">
+        <div class="loader"></div>
+    </div>
     <!-- container-starts -->
     <div class="container">
         <!-- side-section-starts -->
@@ -85,7 +121,7 @@
                             </div>
                             <div class="made-content">
                                 <h3>Daily Mix 1</h3>
-                                <p class="content-p">Catch all the latest songs Lorem ipsum dolor</p>
+                                <p class="content-p">Vibes Tailored Just for You</p>
                             </div>
                         </div>
                         <div class="made-box-card">
@@ -94,7 +130,7 @@
                             </div>
                             <div class="made-content">
                                 <h3>Daily Mix 2</h3>
-                                <p class="content-p">Catch all the latest songs Lorem ipsum dolor</p>
+                                <p class="content-p">Music That Matches Your Mood</p>
                             </div>
                         </div>
                         <div class="made-box-card">
@@ -103,7 +139,7 @@
                             </div>
                             <div class="made-content">
                                 <h3>Daily Mix 3</h3>
-                                <p class="content-p">Catch all the latest songs Lorem ipsum dolor</p>
+                                <p class="content-p">Handpicked Tracks You’ll Enjoy</p>
                             </div>
                         </div>
                         <div class="made-box-card">
@@ -112,7 +148,7 @@
                             </div>
                             <div class="made-content">
                                 <h3>Daily Mix 4</h3>
-                                <p class="content-p">Catch all the latest songs Lorem ipsum dolor</p>
+                                <p class="content-p">Discover What You’ll Play Again</p>
                             </div>
                         </div>
                         <div class="made-box-card">
@@ -121,7 +157,7 @@
                             </div>
                             <div class="made-content">
                                 <h3>Daily Mix 5</h3>
-                                <p class="content-p">Catch all the latest songs Lorem ipsum dolor</p>
+                                <p class="content-p">Your Music Journey Starts Here</p>
                             </div>
                         </div>
                         <div class="made-box-card">
@@ -130,7 +166,7 @@
                             </div>
                             <div class="made-content">
                                 <h3>Daily Mix 5</h3>
-                                <p class="content-p">Catch all the latest songs Lorem ipsum dolor</p>
+                                <p class="content-p">Uncover Music You’ll Always Love</p>
                             </div>
                         </div>
                     </div>
@@ -218,7 +254,7 @@
     </div>
 
     <!-- footer-starts -->
-     <div id="mobileFooter">
+    <div id="mobileFooter">
         <div class="footer" id="player-page">
             <div class="sections" id="song-about">
                 No Song Loaded!!!
@@ -242,23 +278,22 @@
             </div>
             <input min="0" max="100" value="0" step="0.1" type="range" id="seekRocker">
             <div id="mobilePlayButton">
-            <img style="width: 100%;" src="resources/SVGS/pause-footer.svg" alt="" />
+                <img style="width: 100%;" src="resources/SVGS/pause-footer.svg" alt="" />
             </div>
             <div class="sections" id="volume-button">
                 <div class="svgs-speaker"><img class="svgs" src="resources/SVGS/volume-high-stroke-rounded.svg"
                         alt="" />
                 </div>
                 <div class="slidecontainer">
-                    <input type="range" step="0.1" min="0" max="100" value="50"  class="slider" id="myRange" />
+                    <input type="range" step="0.1" min="0" max="100" value="50" class="slider" id="myRange" />
                     <p><span id="demo"></span></p>
                 </div>
             </div>
         </div>
         <div class="navbar">
             <div id="home" href="#" class="nav-item active homeIcon" onclick="Navigation">
-                <svg  viewBox="0 0 24 24">
-                    <path
-                        class="path active-path"
+                <svg viewBox="0 0 24 24">
+                    <path class="path active-path"
                         d="M9.57 2.61a1.75 1.75 0 0 1 2.86 0l8.37 12.03A1.75 1.75 0 0 1 19.37 17H4.63a1.75 1.75 0 0 1-1.43-2.36L9.57 2.61z">
                     </path>
                 </svg>
@@ -266,8 +301,7 @@
             </div>
             <div id="search" href="#" class="nav-item searchIcon">
                 <svg class="svgs-nav " viewBox="0 0 24 24">
-                    <path
-                        class="path"
+                    <path class="path"
                         d="M10.5 3a7.5 7.5 0 1 1 0 15A7.5 7.5 0 0 1 10.5 3zm0 1.5a6 6 0 1 0 0 12 6 6 0 0 0 0-12zM16.44 15.56l4.25 4.25-1.06 1.06-4.25-4.25 1.06-1.06z">
                     </path>
                 </svg>
@@ -275,8 +309,7 @@
             </div>
             <div id="library" href="#" class="nav-item libraryIcon">
                 <svg class="svgs-nav " viewBox="0 0 24 24">
-                    <path
-                        class="path"
+                    <path class="path"
                         d="M14.5 3.5a.5.5 0 0 1 .5.5v16a.5.5 0 0 1-1 0v-16a.5.5 0 0 1 .5-.5zm-5 3a.5.5 0 0 1 .5.5v13a.5.5 0 0 1-1 0v-13a.5.5 0 0 1 .5-.5zm-5 4a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-1 0v-9a.5.5 0 0 1 .5-.5z">
                     </path>
                 </svg>
@@ -292,8 +325,7 @@
                 <span>Premium</span>
             </div>
         </div>
-
-    </div> 
+    </div>
 
     <div class="footer" id="desktopFooter">
         <div class="sections" id="song-about">
@@ -304,7 +336,8 @@
                 <div class="svgs previous hover"><img src="resources/SVGS/previous-stroke-rounded.svg" alt="" /></div>
                 <div class="svgs Play hover"><img src="resources/SVGS/play-stroke-rounded.svg" alt="" /></div>
                 <div class="svgs Next hover"><img src="resources/SVGS/next-stroke-rounded.svg" alt="" /></div>
-                <div class="svgs loop1 hover"><img src="resources/SVGS/arrow-reload-horizontal-stroke-rounded.svg" alt="" /></div>
+                <div class="svgs loop1 hover"><img src="resources/SVGS/arrow-reload-horizontal-stroke-rounded.svg"
+                        alt="" /></div>
             </div>
             <div class="seek">
                 <div id="current-time">00:00</div>
@@ -315,7 +348,8 @@
             </div>
         </div>
         <div class="sections" id="volume-button">
-            <div class="svgs-speaker"><img class="svgs" src="resources/SVGS/volume-high-stroke-rounded.svg" alt="" /></div>
+            <div class="svgs-speaker"><img class="svgs" src="resources/SVGS/volume-high-stroke-rounded.svg" alt="" />
+            </div>
             <div class="slidecontainer">
                 <input type="range" min="0" max="100" value="50" step="1" class="slider" id="myRange" />
                 <p><span id="demo"></span></p>

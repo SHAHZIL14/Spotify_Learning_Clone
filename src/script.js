@@ -1,8 +1,9 @@
 function mainMobile() {
   async function main() {
+    showLoader();
     const data = await (await fetch("/resources/Data_Modules/DATA.json")).json();
     const artistData = (await (await fetch("/resources/Data_Modules/artistData.json")).json())["artists"];
-    const colorThief = new ColorThief();
+    hideLoader();
     let currentSong = new Audio();
     let currentSongIndex = null;
     let currentSongLi = null;
@@ -48,7 +49,7 @@ function mainMobile() {
 
     function loadingWindowFunctions() {
       window.addEventListener('load', () => {
-        const initialPage = '/';
+        const initialPage = '';
         Navigation(initialPage);
         history.replaceState({ page: initialPage }, '', `#${initialPage}`);
       });
@@ -58,21 +59,32 @@ function mainMobile() {
         Navigation(page);
 
         if (document.getElementsByClassName('player')[0] && document.getElementsByClassName('player')[0].style.display != "none") document.getElementsByClassName('player')[0].style.display = "none";
-        if (document.getElementsByClassName('artist-float-card')[0] && document.getElementsByClassName('artist-float-card')[0].style.display != "none") {
-          document.getElementsByClassName('artist-float-card')[0].style.display = "none";
-          document.getElementsByClassName('container')[0].style.filter = "brightness(100%)";
+        if (document.querySelector('.artist-float-card') && document.querySelector('.artist-float-card').style.display != "none") {
+          document.querySelector('.artist-float-card').style.display = "none";
+          document.querySelector('.container').style.filter = "brightness(100%)";
         }
 
       });
     }
 
     function appReloader() {
-      const [nav] = performance.getEntriesByType("navigation");
-      if (nav?.type === "reload") {
-        window.location.replace('');
-      }
+      window.addEventListener('load', () => {
+        const targetPath = '/'; // change to your desired route
+
+        if (window.location.pathname !== targetPath) {
+          window.location.href = targetPath;
+        }
+      });
     }
 
+    function showLoader() {
+      document.getElementById("loader-overlay")?.classList.add("show");
+    }
+    
+    function hideLoader() {
+      document.getElementById("loader-overlay")?.classList.remove("show");
+    }
+    
     function renderSongList() {
       const songListEl = document.querySelector(".songlist ul");
       songListEl.innerHTML = "";
@@ -131,7 +143,7 @@ function mainMobile() {
       navItem.forEach((currentNavItem) => {
         if (currentNavItem.id != "premium") {
           if (page != "library" && document.getElementsByClassName(iconPageMapping[currentNavItem.id]["page"])[0]) {
-            ;
+
             document.getElementsByClassName(iconPageMapping[currentNavItem.id]["page"])[0].style.display = "none";
           }
           if (currentNavItem.id != "player-page") {
@@ -159,40 +171,25 @@ function mainMobile() {
       history.pushState({ page }, '', `${page}`);
     }
 
-    async function fetchAudioDuration(src) {
-      return await new Promise((resolve, reject) => {
-        const audio = new Audio(src);
-
-        audio.addEventListener('loadedmetadata', () => {
-          resolve(audio.duration)
-        });
-
-        audio.addEventListener('error', (e) => {
-          reject(new Error)
-        });
-      });
-    }
-
     async function createCard(song, index) {
       try {
-        const SRC = `/resources/Songs/${song.songName}`
-        const duration = await fetchAudioDuration(SRC);
+        const duration = song.duration;
         const ul = document.getElementById('card-listing-ul');
         let newLi = document.createElement('li');
         newLi.setAttribute('class', 'card-list-li');
         newLi.setAttribute("id", index);
         newLi.innerHTML = `
-          <div class="li-flex">
-          <img loading="lazy" src="./resources/Posters/${song.poster}" alt=""
-              class="card-list-img">
-          <div class="card-list-details marquee-container">
-              <div class="song-name">${song.songName.replace(".mp3", "")}</div>
-              <div class="artist-name-card-list marquee-text">${song.artist}</div>
-          </div>
-          </div>
-          <div class="extras">
-          <div class="duration">${formatTime(duration)}</div>
-          </div>`
+        <div class="li-flex">
+        <img loading="lazy" src="./resources/Posters/${song.poster}" alt=""
+            class="card-list-img">
+        <div class="card-list-details">
+            <div class="song-name">${song.songName.replace(".mp3", "")}</div>
+            <div class="artist-name-card-list">${song.artist}</div>
+        </div>
+        </div>
+        <div class="extras">
+        <div class="duration">${duration}</div>
+        </div>`
         newLi.addEventListener('click', () => {
           let clickedSongName = newLi.children[0].children[1].children[0].innerText.toString().concat(".mp3");
           data.forEach((eachSongObject) => {
@@ -201,13 +198,8 @@ function mainMobile() {
             }
           })
         })
-        ul.appendChild(newLi);
-        if (currentSongIndex && newLi.children[0].children[1].children[0].innerText == currentSong.src.toString().split("/")[5].replaceAll("%20", " ").replaceAll(".mp3", "") &&
-          document.getElementsByClassName('selected').length == 1
-        ) {
-          newLi.classList.add("selected-list");
-        }
-        else newLi.classList.remove("selected-list");
+
+        return newLi;
       } catch (error) {
         console.log(error);
       }
@@ -215,25 +207,29 @@ function mainMobile() {
     }
 
     async function createArtistCard(artist) {
-      const parentDiv = document.getElementsByClassName('artist-card-section')[0].children[1];
+      const parentDiv = document.querySelector('.artist-card-section').children[1];
       const div = document.createElement('div');
       div.setAttribute("class", "artist-card");
+      div.setAttribute("data-name", artist.name); // safer than matching image src
       div.innerHTML = `
-          <div class="artist-image"><img loading = "lazy" src="${artist.poster}" alt=""></div>
-          <div class="text">
-              <div class="artist-name">${artist.name}</div>
-              <div class="artist-text">${artist.artist_work}</div>
-          </div>
-          `
-      div.addEventListener('click', function (e) {
-        let artistObject = null;
+        <div class="artist-image"><img loading="lazy" src="${artist.poster}" alt=""></div>
+        <div class="text">
+          <div class="artist-name">${artist.name}</div>
+          <div class="artist-text">${artist.artist_work}</div>
+        </div>
+      `;
 
-        artistData.forEach((eachArtistObject) => {
-          let clickedSRC = e.target.src.slice(21).includes("%20") ? e.target.src.slice(21).replaceAll("%20", " ") : e.target.src.slice(21);
-          if (clickedSRC == eachArtistObject.poster) artistObject = eachArtistObject
-        });
-        createArtistDescriptionCard(artistObject);
-      })
+      div.addEventListener('click', function (e) {
+        const artistName = e.currentTarget.getAttribute("data-name");
+        const artistObject = artistData.find(a => a.name === artistName);
+
+        if (artistObject) {
+          createArtistDescriptionCard(artistObject);
+        } else {
+          alert("Artist object not found");
+        }
+      });
+
       parentDiv.appendChild(div);
     }
 
@@ -256,7 +252,7 @@ function mainMobile() {
       grandParent.appendChild(parentDiv);
 
       let widthPercent = (document.getElementById('topResultCardArtistName').clientWidth / document.getElementById('topResultCardArtistName').parentElement.clientWidth) * 100
-      // console.log(widthPercent)
+
       if (widthPercent > 95) document.getElementById('topResultCardArtistName').classList.add('scroll');
       widthPercent = (document.getElementsByClassName('gaane')[0].clientWidth / document.getElementsByClassName('gaane')[0].parentElement.clientWidth) * 100;
       if (widthPercent > 95) {
@@ -282,89 +278,174 @@ function mainMobile() {
     }
 
     function createArtistDescriptionCard(artist) {
+      if (!artist || !artist.poster || !artist.name) {
+        alert("Invalid artist object!");
+        return;
+      }
+
       const body = document.querySelector('body');
-      let topSongs = " ";
-      let genre = " ";
-      (artist.topSongs).forEach((eachSong) => { topSongs += eachSong + " , " });
-      (artist.genres).forEach((eachGenre) => { genre += eachGenre + " , " });
+      const topSongs = artist.topSongs.join(", ");
+      const genre = artist.genres.join(", ");
+
+      const wrapper = document.createElement('div');
+      wrapper.className = 'artist-card-wrapper';
+      wrapper.style.position = 'fixed';
+      wrapper.style.top = '0';
+      wrapper.style.left = '0';
+      wrapper.style.width = '100vw';
+      wrapper.style.height = '100vh';
+      wrapper.style.zIndex = '999';
+      wrapper.style.display = 'flex';
+      wrapper.style.alignItems = 'center';
+      wrapper.style.justifyContent = 'center';
+
       const artistDescriptionCard = document.createElement('div');
-      artistDescriptionCard.setAttribute('class', 'artist-float-card');
+      artistDescriptionCard.className = 'artist-float-card';
       artistDescriptionCard.style.backgroundImage = `url(${artist.poster})`;
-      artistDescriptionCard.style.backdropFilter = `blur(5px)`;
       artistDescriptionCard.style.backgroundRepeat = `no-repeat`;
       artistDescriptionCard.style.backgroundSize = `cover`;
+      artistDescriptionCard.style.backdropFilter = `blur(5px)`;
+      artistDescriptionCard.style.zIndex = "1000";
+
       artistDescriptionCard.innerHTML = `
-      <span id="close-card" class="close-btn" >x</span>
-      <div class="artist-details">
-      <h2>${capitalizeWords(artist.name)}</h2>
-      <p>${artist.para}</p>
-      <ul>
-        <li><strong>Top Songs:</strong>${topSongs.slice(0, topSongs.length - 2)}</li>
-        <li><strong>Spotify Listeners:</strong> ${artist.monthlyListeners} monthly</li>
-        <li><strong>Genres:</strong> ${genre.slice(0, genre.length - 2)}</li>
-        <li><strong>Awards:</strong>${" " + artist.awards}</li>
-        <li><strong>Years Active:</strong> ${artist.activeYears}</li>
-      </ul>
-    </div>
-      `
-      document.getElementsByClassName('container')[0].style.filter = "brightness(5%)";
-      let tempDiv = document.createElement('div');
-      tempDiv.setAttribute("class", "beforeDiv");
-      artistDescriptionCard.appendChild(tempDiv);
-      body.appendChild(artistDescriptionCard);
-      window.scrollTo({
-        top: 0,
-        behavior: 'smooth'
-      });
+        <span id="close-card" class="close-btn">×</span>
+        <div class="artist-details">
+          <h2>${capitalizeWords(artist.name)}</h2>
+          <p>${artist.para}</p>
+          <ul>
+            <li><strong>Top Songs:</strong> ${topSongs}</li>
+            <li><strong>Spotify Listeners:</strong> ${artist.monthlyListeners} monthly</li>
+            <li><strong>Genres:</strong> ${genre}</li>
+            <li><strong>Awards:</strong> ${artist.awards}</li>
+            <li><strong>Years Active:</strong> ${artist.activeYears}</li>
+          </ul>
+        </div>
+      `;
+
+      wrapper.appendChild(artistDescriptionCard);
+
+      const container = document.querySelector('.container');
+      if (container) container.style.filter = "brightness(20%)";
+
+      body.appendChild(wrapper);
+      document.body.style.overflow = "hidden";
+
       document.getElementById('close-card').addEventListener('click', () => {
-        console.log("worked");
-        document.getElementsByClassName('artist-float-card')[0].remove();
-        document.getElementsByClassName('container')[0].style.filter = "brightness(100%)";
+        wrapper.remove();
+        document.body.style.overflow = "";
+        if (container) container.style.filter = "brightness(100%)";
+      });
+
+      wrapper.addEventListener('click', (e) => {
+        if (!artistDescriptionCard.contains(e.target)) {
+          wrapper.remove();
+          document.body.style.overflow = "";
+          if (container) container.style.filter = "brightness(100%)";
+        }
       });
     }
 
     let renderToken = 0;
+
     async function cardListRendering(filteredArray) {
+      showLoader();
       const ul = document.getElementById('card-listing-ul');
       if (!ul) return;
+
       const currentToken = ++renderToken;
       ul.innerHTML = "";
+
       try {
-        for (let index = 0; index < filteredArray.length; index++) {
-          if (renderToken !== currentToken) return;  // Cancel stale render
-          await createCard(filteredArray[index], index);
-        }
-        Array.from(document.getElementsByClassName('artist-name-card-list')).forEach((eachSongElement) => {
-          let width_percentage = (eachSongElement.clientWidth / eachSongElement.parentElement.clientWidth) * 100;
-          if (width_percentage > 95) {
-            eachSongElement.classList.add('scroll')
+        const fragment = document.createDocumentFragment();
+        const cardElements = [];
+
+        for (let i = 0; i < filteredArray.length; i++) {
+          if (renderToken !== currentToken) return;
+
+          const cardEl = await createCard(filteredArray[i], i);
+          if (cardEl) {
+            cardElements.push(cardEl);
+            fragment.appendChild(cardEl);
           }
-        })
+        }
+
+        ul.appendChild(fragment); // append all at once
+
+        const currentSongName = currentSong.src ? currentSong.src.split("/").pop().replaceAll("%20", " ") : null;
+
+        cardElements.forEach(cardEl => {
+          const cardSongName = cardEl.querySelector(".song-name").innerText + ".mp3";
+          if (cardSongName === currentSongName) {
+            cardEl.classList.add("selected-list");
+          } else {
+            cardEl.classList.remove("selected-list");
+          }
+        });
+
+        Array.from(document.getElementsByClassName('artist-name-card-list')).forEach(el => {
+          const width_percentage = (el.clientWidth / el.parentElement.clientWidth) * 100;
+          if (width_percentage > 95) el.classList.add('scroll');
+        });
+
       } catch (error) {
         console.error("Error rendering cards:", error);
       }
+      hideLoader();
     }
 
-    async function defaultCardRendering() {
-      const data = await (await fetch("/resources/Data_Modules/DefaultCardData.json")).json();
-      const browseSection = document.getElementsByClassName('browse-section')[0];
-      for (let i = 0; i < 100; i++) {
-        let currentDataCard = data[i % data.length]
-        let newDiv = document.createElement('div');
-        newDiv.setAttribute('class', 'browse-all-cards');
-        newDiv.innerHTML = `
-              <p class="genre">${currentDataCard.title}</p>
-              <img loading="lazy" class="rotate-img" src="${currentDataCard.image}" alt="">
-              `
-        browseSection.appendChild(newDiv);
-      }
-      coloringTheCards();
+    let cardRenderIndex = 0;
+    const cardsPerBatch = 10;
+    let allCardsRendered = false;
+    let isRendering = false;
 
+    async function lazyDefaultCardRendering() {
+      const data = await (await fetch("/resources/Data_Modules/DefaultCardData.json")).json();
+      const browseSection = document.querySelector(".browse-section");
+      if (!browseSection) return;
+
+      function renderBatch() {
+        if (allCardsRendered || isRendering) return; // 💡 Prevent overlapping renders
+        isRendering = true;
+
+        const fragment = document.createDocumentFragment();
+
+        for (let i = 0; i < cardsPerBatch && cardRenderIndex < 100; i++, cardRenderIndex++) {
+          const currentDataCard = data[cardRenderIndex % data.length];
+          const card = document.createElement("div");
+          card.className = "browse-all-cards";
+          card.innerHTML = `
+            <p class="genre">${currentDataCard.title}</p>
+            <img loading="lazy" class="rotate-img" src="${currentDataCard.image}" alt="">
+          `;
+          fragment.appendChild(card);
+        }
+
+        browseSection.appendChild(fragment);
+        coloringTheCards();
+
+        if (cardRenderIndex >= 100) {
+          allCardsRendered = true;
+        }
+
+        isRendering = false;
+      }
+
+      renderBatch();
+
+      browseSection.addEventListener("scroll", () => {
+        if (
+          !allCardsRendered &&
+          !isRendering &&
+          browseSection.scrollTop + browseSection.clientHeight >= browseSection.scrollHeight - 100
+        ) {
+          renderBatch();
+        }
+      });
     }
 
     async function artistCardRendering(filteredArtist) {
       try {
-        const artistSection = document.getElementsByClassName('artist-card-section')[0];
+        const artistSection = document.querySelector('.artist-card-section');
         if (filteredArtist.length != 0) {
           artistSection.innerHTML = `
                   <h2>Artists</h2>
@@ -384,7 +465,6 @@ function mainMobile() {
     async function renderDailyMix() {
       const dailyMixCards = Array.from(document.getElementsByClassName('made-box-card'));
 
-      // Guard against missing artistData
       if (!artistData || artistData.length === 0) return;
 
       const startIndex = Math.floor(Math.random() * artistData.length);
@@ -403,62 +483,76 @@ function mainMobile() {
         } else {
           console.warn("Missing artist or poster at index", i);
         }
+        currentCard.addEventListener('click',()=>{
+          alert('LogIn for personalize daily mix.');
+        })
       }
     }
 
     function searching() {
-      let currentInput = document.getElementById('searchbox').value.toLowerCase();
-      let defaultBox = document.getElementById('default');
-      let artistSection = document.getElementsByClassName('artist-card-section')[0];
-      let searchSection = document.getElementById('searchup');
-      let matchingSongList = [];
-      let matchingArtistList = [];
-      let topMatchedSongsList = [];
-      if (currentInput && currentInput.length > 0) {
-        matchingSongList = data.filter((eachSongObject) => { if (eachSongObject.songName.toLowerCase().trim().startsWith(currentInput.toLowerCase().trim()) && !(matchingSongList.includes(eachSongObject))) return eachSongObject });
+      const currentInput = document.getElementById('searchbox').value.toLowerCase().trim();
+      const defaultBox = document.getElementById('default');
+      const artistSection = document.querySelector('.artist-card-section');
+      const searchSection = document.getElementById('searchup');
+      const mainContent = document.getElementsByClassName('main-content')[0];
+      const unavailable = document.getElementsByClassName('unavailable')[0];
 
-        topMatchedSongsList = data.filter((eachSongObject) => { if (eachSongObject.songName.toLowerCase().trim().startsWith(currentInput.toLowerCase().trim())) return eachSongObject });
-
-        matchingArtistList = artistData.filter((eachArtistObject) => {
-          if (eachArtistObject.name.toLowerCase().trim().startsWith(currentInput.toLowerCase().trim())) return eachArtistObject
-        });
-        if (matchingSongList.length != 0) {
-          defaultBox.style.display = "none";
-          document.getElementsByClassName("main-content")[0].style.display = "flex";
-          document.getElementsByClassName('unavailable')[0].style.display = 'none';
-          Array.from(document.getElementsByClassName('Headings')).forEach((element) => {
-            element.style.display = "flex";
-          })
-          searchSection.style.display = "flex";
-          cardListRendering(matchingSongList);
-          if (topMatchedSongsList.length != 0) topResultCreateCard(topMatchedSongsList[0], 0);
-          else topResultCreateCard(matchingSongList[0], 0);
-
-        }
-        else if (matchingArtistList.length != 0 && matchingSongList.length == 0) {
-          document.getElementsByClassName('main-content')[0].style.display = "none";
-        }
-        else {
-          document.getElementById('searchup').style.display = 'none';
-          document.getElementsByClassName('unavailable')[0].style.display = 'block';
-          Array.from(document.getElementsByClassName('Headings')).forEach((element) => {
-            element.style.display = "none";
-          })
-        }
-        artistCardRendering(matchingArtistList);
-      }
-      else {
+      if (!currentInput) {
         document.getElementById('classingList').innerHTML = `<ul id="card-listing-ul"></ul>`;
         defaultBox.style.display = "block";
         searchSection.style.display = "none";
         artistSection.innerHTML = "";
+        return;
       }
 
+      let matchingSongList = data.filter(song =>
+        song.songName.toLowerCase().startsWith(currentInput)
+      );
 
+      if(matchingSongList.length==0){
+        matchingSongList = data.filter(song =>
+          song.songName.toLowerCase().includes(currentInput)
+        );
+      }
+
+      let matchingArtistList = artistData.filter(artist =>
+        artist.name.toLowerCase().startsWith(currentInput)
+      );
+
+      if(matchingArtistList.length==0){
+        matchingArtistList = artistData.filter(artist =>
+        artist.name.toLowerCase().includes(currentInput))
+      }
+
+      if (matchingSongList.length > 0) {
+        defaultBox.style.display = "none";
+        mainContent.style.display = "flex";
+        unavailable.style.display = "none";
+        document.querySelectorAll(".Headings").forEach(el => el.style.display = "flex");
+        searchSection.style.display = "flex";
+        cardListRendering(matchingSongList);
+        const topResult = matchingSongList[0];
+        topResultCreateCard(topResult, 0);
+        console.log("if");
+      } else if (matchingArtistList.length > 0) {
+        defaultBox.style.display = "none";
+        mainContent.style.display = "flex";
+        unavailable.style.display = "none";
+        console.log("else if");
+      } else {
+        defaultBox.style.display = "none";
+        searchSection.style.display = 'none';
+        unavailable.style.display = 'block';
+        document.querySelectorAll(".Headings").forEach(el => el.style.display = "none");
+        console.log("else");
+      }
+
+      artistCardRendering(matchingArtistList);
     }
 
     function handleSongClick(index) {
-      document.getElementsByClassName('container')[0].style.marginBottom = "40%";
+      showLoader();
+      document.querySelector('.container').style.marginBottom = "10%";
       if (currentSongLi) {
         currentSongLi.classList.remove("selected-list");
       }
@@ -472,6 +566,7 @@ function mainMobile() {
       currentSongLi.classList.add("selected-list");
       currentSongLi.classList.add("selected");
       currentSongLi.querySelector(".playbutton img").src = "/resources/SVGS/pause.svg";
+      document.getElementById('mobilePlayButton').firstElementChild.src = "/resources/SVGS/pause-footer.svg";
       currentSongLi.querySelector(".playbutton img").style.filter = "invert(1)";
       currentSrc = songs[index];
       playSong(currentSrc);
@@ -500,6 +595,7 @@ function mainMobile() {
         })
       }
       playButton.querySelector("img").src = "/resources/SVGS/pause.svg";
+      hideLoader();
     }
 
     function updateSongAbout(index) {
@@ -516,20 +612,28 @@ function mainMobile() {
     `;
     }
 
-    async function loadImageAndExtractColor(image) {
+    async function getDominantColor(imgElement) {
       return new Promise((resolve, reject) => {
-        image.onload = () => {
-          if (image.naturalWidth === 0) {
-            reject(new Error("Image failed to load (naturalWidth = 0)"));
-          } else {
+        const colorThief = new ColorThief();
+
+        if (!imgElement.complete || imgElement.naturalWidth === 0) {
+          imgElement.onload = () => {
             try {
-              const color = colorThief.getColor(image);
+              const color = colorThief.getColor(imgElement);
               resolve(color);
-            } catch (e) {
-              reject(e);
+            } catch (err) {
+              reject("Color extraction failed after image load.");
             }
-          }
-        };
+          };
+          return;
+        }
+
+        try {
+          const color = colorThief.getColor(imgElement);
+          resolve(color);
+        } catch (err) {
+          reject("Color extraction failed.");
+        }
       });
     }
 
@@ -550,13 +654,15 @@ function mainMobile() {
         let footer = document.getElementsByClassName("footer")[0];
         let player = document.getElementsByClassName('player')[0];
         let img = footer.children[0].children[0].children[0].children[0];
-        loadImageAndExtractColor(img)
-          .then((response) => {
-            const newColor = normalizeColor(Number(response[0]), Number(response[1]), Number(response[2]), 0.3, 0.6);
+        getDominantColor(img)
+          .then((rgb) => {
+            const newColor = normalizeColor(rgb[0], rgb[1], rgb[2], 0.3, 0.6);
             footer.style.background = newColor;
-            player.style.background = `linear-gradient(180deg,${newColor} 40%,black 150%)`;
+            player.style.background = `linear-gradient(180deg, ${newColor} 40%, black 150%)`;
           })
-          .catch((response) => { console.log(response) })
+          .catch((err) => {
+            console.error("Color extraction failed:", err);
+          });
         footer.style.display = "flex";
         let widthPercent = (document.getElementsByClassName('artist-name-poster')[0].clientWidth / document.getElementsByClassName('artist-name-poster')[0].parentElement.clientWidth) * 100;
         if (widthPercent > 100) {
@@ -597,7 +703,7 @@ function mainMobile() {
         seekParent.setAttribute('class', 'seek-parent');
         let seekSection = document.getElementById('seeksection');
         let seek = (document.getElementsByClassName('seek')[0]);
-        // let seekBar = document.getElementsByClassName('seekbar')[0];
+
         let seekRocker = document.getElementById('seekRocker');
         var dummySeekBar = document.createElement('div');
         dummySeekBar.setAttribute('id', 'dummySeekBar');
@@ -653,7 +759,9 @@ function mainMobile() {
           currentSong.play();
           currentSongLi.classList.add("selected");
           if (document.getElementsByClassName('song-card').length != 0) {
-            document.getElementsByClassName('song-card')[0].classList.add("selected-card");
+            if (document.getElementsByClassName('song-card')[0].children[1].firstElementChild.innerText.toLowerCase() == currentSrc.split('.mp3')[0].toLowerCase()) {
+              document.getElementsByClassName('song-card')[0].classList.add("selected-card");
+            }
           }
           icon.src = "/resources/SVGS/pause.svg";
           currentLi.querySelector(".playbutton img").src = "/resources/SVGS/pause.svg";
@@ -759,9 +867,10 @@ function mainMobile() {
             prevLi.classList.remove("selected");
             prevLi.querySelector(".playbutton img").src = "/resources/SVGS/play-circle-svgrepo-com.svg";
             document.querySelector('.Play').children[0].src = '/resources/SVGS/play.svg';
-            // rocker.style.width = '0%';
+            document.querySelector('#mobilePlayButton').children[0].src = '/resources/SVGS/play-footer.svg';
+            rocker.value = 0;
             document.getElementById('dummy-seek-rocker').style.width = `${rocker.value}%`;
-            document.getElementsByClassName("selected-card")[0].classList.remove("selected-card");
+            if (document.getElementsByClassName('selected-card').length != 0) document.getElementsByClassName("selected-card")[0].classList.remove("selected-card");
             document.getElementById("card-listing-ul").getElementsByClassName("selected-list")[0].classList.remove("selected-list");
           }
         }
@@ -785,10 +894,7 @@ function mainMobile() {
     }
 
     function capitalizeWords(str) {
-      return str
-        .split(' ')
-        .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
-        .join(' ');
+      return str.replace(/\b\w/g, char => char.toUpperCase());
     }
 
     function normalizeColor(r, g, b, targetLightMin = 0.4, targetLightMax = 0.6) {
@@ -801,16 +907,13 @@ function mainMobile() {
       const min = Math.min(rNorm, gNorm, bNorm);
       const delta = max - min;
 
-      // Compute Lightness
       let l = (max + min) / 2;
 
-      // Compute Saturation
       let s = 0;
       if (delta !== 0) {
         s = delta / (1 - Math.abs(2 * l - 1));
       }
 
-      // Compute Hue
       let h = 0;
       if (delta !== 0) {
         if (max === rNorm) {
@@ -824,14 +927,12 @@ function mainMobile() {
         if (h < 0) h += 360;
       }
 
-      // Adjust lightness if outside of normal range
       if (l < targetLightMin) {
         l = targetLightMin; // Lighten too-dark colors
       } else if (l > targetLightMax) {
         l = targetLightMax; // Darken too-light colors
       }
 
-      // Convert HSL back to RGB
       const c = (1 - Math.abs(2 * l - 1)) * s;
       const x = c * (1 - Math.abs((h / 60) % 2 - 1));
       const m = l - c / 2;
@@ -851,7 +952,6 @@ function mainMobile() {
         [r1, g1, b1] = [c, 0, x];
       }
 
-      // Convert to 0–255 range
       return `rgba(${Math.round((r1 + m) * 255)},${Math.round((g1 + m) * 255)},${Math.round((b1 + m) * 255)},1)`;
     }
 
@@ -900,7 +1000,7 @@ function mainMobile() {
       }
     }
 
-    const debouncedSearching = debounce(searching, 100);
+    const debouncedSearching = debounce(searching, 500);
 
     function extraEssentialCalls() {
       document.getElementById('searchbox').addEventListener('input', debouncedSearching);
@@ -914,6 +1014,9 @@ function mainMobile() {
           if (eachNavItem.id != 'premium') navigateTo(eachNavItem.id);
         })
       });
+      document.getElementById('premium').addEventListener('click', function () {
+        alert("Premium version will be available soon");
+      })
     }
 
     function init() {
@@ -921,7 +1024,7 @@ function mainMobile() {
       loadingWindowFunctions();
       renderSongList();
       volumeAlert()
-      defaultCardRendering();
+      lazyDefaultCardRendering();
       setupPlayButton();
       setupPlayFooter();
       setupLoopToggle();
@@ -944,7 +1047,6 @@ function mainMobile() {
 }
 
 function mainLaptop() {
-
   async function main() {
     const data = await (await fetch("/resources/Data_Modules/DATA.json")).json();
     const artistData = (await (await fetch("/resources/Data_Modules/artistData.json")).json())["artists"];
@@ -962,7 +1064,6 @@ function mainLaptop() {
       currentSong.src = `/resources/Songs/${track}`;
       currentSong.play();
     }
-
 
     function renderSongList() {
       const songListEl = document.querySelector(".songlist ul");
@@ -1002,7 +1103,6 @@ function mainLaptop() {
       }).showToast();
     }
 
-
     function top_Result_Rendering() {
       try {
         const section = document.getElementById('song-card-listing-new');
@@ -1028,24 +1128,9 @@ function mainLaptop() {
 
     }
 
-    async function fetchAudioDuration(src) {
-      return await new Promise((resolve, reject) => {
-        const audio = new Audio(src);
-
-        audio.addEventListener('loadedmetadata', () => {
-          resolve(audio.duration)
-        });
-
-        audio.addEventListener('error', (e) => {
-          reject(new Error)
-        });
-      });
-    }
-
     async function createCard(song, index) {
       try {
-        const SRC = `/resources/Songs/${song.songName}`
-        const duration = await fetchAudioDuration(SRC);
+        const duration = song.duration;
         const ul = document.getElementById('card-listing-ul');
         let newLi = document.createElement('li');
         newLi.setAttribute('class', 'card-list-li');
@@ -1060,7 +1145,7 @@ function mainLaptop() {
         </div>
         </div>
         <div class="extras">
-        <div class="duration">${formatTime(duration)}</div>
+        <div class="duration">${duration}</div>
         </div>`
         newLi.addEventListener('click', () => {
           let clickedSongName = newLi.children[0].children[1].children[0].innerText.toString().concat(".mp3");
@@ -1070,13 +1155,8 @@ function mainLaptop() {
             }
           })
         })
-        ul.appendChild(newLi);
-        if (newLi.children[0].children[1].children[0].innerText == currentSong.src.toString().split("/")[5].replaceAll("%20", " ").replaceAll(".mp3", "") &&
-          document.getElementsByClassName('selected').length == 1
-        ) {
-          newLi.classList.add("selected-list");
-        }
-        else newLi.classList.remove("selected-list");
+
+        return newLi;
       } catch (error) {
         console.log(error);
       }
@@ -1084,7 +1164,7 @@ function mainLaptop() {
     }
 
     async function createArtistCard(artist) {
-      const parentDiv = document.getElementsByClassName('artist-card-section')[0].children[1];
+      const parentDiv = document.querySelector('.artist-card-section').children[1];
       const div = document.createElement('div');
       div.setAttribute("class", "artist-card");
       div.innerHTML = `
@@ -1175,33 +1255,63 @@ function mainLaptop() {
     </ul>
   </div>
     `
-      document.getElementsByClassName('container')[0].style.filter = "brightness(10%)";
+      document.querySelector('.container').style.filter = "brightness(10%)";
       body.appendChild(artistDescriptionCard);
       document.getElementById('close-card').addEventListener('click', () => {
-        document.getElementsByClassName('artist-float-card')[0].remove();
-        document.getElementsByClassName('container')[0].style.filter = "brightness(100%)";
+        document.querySelector('.artist-float-card').remove();
+        document.querySelector('.container').style.filter = "brightness(100%)";
       });
     }
 
+    let renderToken = 0;
+
     async function cardListRendering(filteredArray) {
+      const ul = document.getElementById('card-listing-ul');
+      if (!ul) return;
+
+      const currentToken = ++renderToken;
+      ul.innerHTML = "";
+
       try {
-        const ul = document.getElementById('card-listing-ul');
-        ul.innerText = "";
-        let index = 0;
-        for (const songObject of filteredArray) {
-          await createCard(songObject, index);
-          index++;
+        const fragment = document.createDocumentFragment();
+        const cardElements = [];
+
+        for (let i = 0; i < filteredArray.length; i++) {
+          if (renderToken !== currentToken) return;
+
+          const cardEl = await createCard(filteredArray[i], i);
+          if (cardEl) {
+            cardElements.push(cardEl);
+            fragment.appendChild(cardEl);
+          }
         }
 
+        ul.appendChild(fragment); // append all at once
+
+        const currentSongName = currentSong.src ? currentSong.src.split("/").pop().replaceAll("%20", " ") : null;
+
+        cardElements.forEach(cardEl => {
+          const cardSongName = cardEl.querySelector(".song-name").innerText + ".mp3";
+          if (cardSongName === currentSongName) {
+            cardEl.classList.add("selected-list");
+          } else {
+            cardEl.classList.remove("selected-list");
+          }
+        });
+
+        Array.from(document.getElementsByClassName('artist-name-card-list')).forEach(el => {
+          const width_percentage = (el.clientWidth / el.parentElement.clientWidth) * 100;
+          if (width_percentage > 95) el.classList.add('scroll');
+        });
+
       } catch (error) {
-
+        console.error("Error rendering cards:", error);
       }
-
     }
 
     async function defaultCardRendering() {
       const data = await (await fetch("/resources/Data_Modules/DefaultCardData.json")).json();
-      const browseSection = document.getElementsByClassName('browse-section')[0];
+      const browseSection = document.querySelector('.browse-section');
       for (let i = 0; i < 100; i++) {
         let currentDataCard = data[i % data.length]
         let newDiv = document.createElement('div');
@@ -1213,13 +1323,12 @@ function mainLaptop() {
         browseSection.appendChild(newDiv);
       }
       coloringTheCards();
-
     }
 
     async function artistCardRendering(filteredArtist) {
       try {
         console.log(filteredArtist);
-        const artistSection = document.getElementsByClassName('artist-card-section')[0];
+        const artistSection = document.querySelector('.artist-card-section');
         if (filteredArtist.length != 0) {
           artistSection.innerHTML = `
                 <h2>Artists</h2>
@@ -1239,7 +1348,6 @@ function mainLaptop() {
     async function renderDailyMix() {
       const dailyMixCards = Array.from(document.getElementsByClassName('made-box-card'));
 
-      // Guard against missing artistData
       if (!artistData || artistData.length === 0) return;
 
       const startIndex = Math.floor(Math.random() * artistData.length);
@@ -1256,57 +1364,84 @@ function mainLaptop() {
         } else {
           console.warn("Missing artist or poster at index", i);
         }
+        currentCard.addEventListener('click',()=>{
+          alert('LogIn for personalize daily mix.');
+        })
       }
     }
 
     function searching() {
-      let currentInput = document.getElementById('searchbox').value.toLowerCase();
-      let defaultBox = document.getElementById('default');
-      let artistSection = document.getElementsByClassName('artist-card-section')[0];
-      let searchSection = document.getElementById('searchup');
-      let matchingSongList = [];
-      let matchingArtistList = [];
-      if (currentInput && currentInput.length > 0) {
-        matchingSongList = data.filter((eachSongObject) => { if (eachSongObject.songName.toLowerCase().trim().startsWith(currentInput.toLowerCase().trim())) return eachSongObject });
+      const currentInput = document.getElementById('searchbox').value.toLowerCase().trim();
+      const defaultBox = document.getElementById('default');
+      const artistSection = document.querySelector('.artist-card-section');
+      const searchSection = document.getElementById('searchup');
+      const mainContent = document.getElementsByClassName('main-content')[0];
+      const unavailable = document.getElementsByClassName('unavailable')[0];
 
-        matchingArtistList = artistData.filter((eachArtistObject) => {
-          if (eachArtistObject.name.toLowerCase().trim().startsWith(currentInput.toLowerCase().trim())) return eachArtistObject
-        });
-
-        if (matchingSongList.length != 0) {
-          defaultBox.style.display = "none";
-          document.getElementsByClassName("main-content")[0].style.display = "flex";
-          document.getElementsByClassName('unavailable')[0].style.display = 'none';
-          Array.from(document.getElementsByClassName('Headings')).forEach((element) => {
-            element.style.display = "flex";
-          })
-          searchSection.style.display = "flex";
-          cardListRendering(matchingSongList);
-          topResultCreateCard(matchingSongList[0], 0);
-        }
-        else if (matchingArtistList.length != 0 && matchingSongList.length == 0) {
-          document.getElementsByClassName('main-content')[0].style.display = "none";
-        }
-        else {
-          document.getElementById('searchup').style.display = 'none';
-          document.getElementsByClassName('unavailable')[0].style.display = 'block';
-          Array.from(document.getElementsByClassName('Headings')).forEach((element) => {
-            element.style.display = "none";
-          })
-        }
-
-        artistCardRendering(matchingArtistList);
-      }
-      else {
+      if (!currentInput) {
+        document.getElementById('classingList').innerHTML = `<ul id="card-listing-ul"></ul>`;
         defaultBox.style.display = "block";
         searchSection.style.display = "none";
-        artistSection.innerHTML = ""
+        artistSection.innerHTML = "";
+        return;
+      }
+
+      let matchingSongList = data.filter(song =>
+        song.songName.toLowerCase().startsWith(currentInput)
+      );
+
+      if(matchingSongList.length==0){
+        matchingSongList = data.filter(song =>
+          song.songName.toLowerCase().includes(currentInput)
+        );
       }
 
 
+      let matchingArtistList = artistData.filter(artist =>
+        artist.name.toLowerCase().startsWith(currentInput)
+      );
+
+      if(matchingArtistList.length==0){
+        matchingArtistList = artistData.filter(artist =>
+        artist.name.toLowerCase().includes(currentInput))
+      }
+
+
+      if (matchingSongList.length > 0) {
+        defaultBox.style.display = "none";
+        mainContent.style.display = "flex";
+        unavailable.style.display = "none";
+        document.querySelectorAll(".Headings").forEach(el => el.style.display = "flex");
+        searchSection.style.display = "flex";
+        cardListRendering(matchingSongList);
+        const topResult = matchingSongList[0];
+        topResultCreateCard(topResult, 0);
+        console.log("if");
+      } else if (matchingArtistList.length > 0) {
+        defaultBox.style.display = "none";
+        mainContent.style.display = "flex";
+        unavailable.style.display = "none";
+        console.log("else if");
+      } else {
+        defaultBox.style.display = "none";
+        searchSection.style.display = 'none';
+        unavailable.style.display = 'block';
+        document.querySelectorAll(".Headings").forEach(el => el.style.display = "none");
+        console.log("else");
+      }
+
+      artistCardRendering(matchingArtistList);
     }
 
     function handleSongClick(index) {
+      if(index==currentSongIndex){
+        if(currentSong.paused){
+          alert("The song you choosed is already loaded on your track, control it via player");
+        }
+        else{
+          alert("The song is playing already");
+        }
+        return}
       if (currentSongLi) {
         currentSongLi.classList.remove("selected-list");
       }
@@ -1322,21 +1457,20 @@ function mainLaptop() {
       currentSongLi.classList.add("selected");
       currentSongLi.querySelector(".playbutton img").src = "/resources/SVGS/pause-stroke-rounded.svg";
       currentSongLi.querySelector(".playbutton img").style.filter = "invert(1)";
-
       currentSrc = songs[index];
       playSong(currentSrc);
       updateSongAbout(index);
       console.log("updatedSongAbout");
       updateRecentList(index);
       if (document.getElementsByClassName('song-card').length != 0) {
-        let songCardText = document.getElementsByClassName('song-card')[0].children[1].children[0].innerText;
+        let songCardText = document.querySelector('.song-card').children[1].children[0].innerText;
         let currentSongName = (currentSong.src.toString()).split("/")[5].replaceAll("%20", " ").replaceAll(".mp3", "");
         console.table([songCardText, currentSongName]);
         if (songCardText != currentSongName) {
-          document.getElementsByClassName('song-card')[0].classList.remove('selected-card');
+          document.querySelector('.song-card').classList.remove('selected-card');
         }
         else {
-          document.getElementsByClassName('song-card')[0].classList.add('selected-card');
+          document.querySelector('.song-card').classList.add('selected-card');
         }
       }
       if (document.getElementsByClassName('card-list-li').length != 0) {
@@ -1419,8 +1553,8 @@ function mainLaptop() {
         if (isPaused) {
           currentSong.play();
           currentSongLi.classList.add("selected");
-          if (document.getElementsByClassName('song-card').length != 0) {
-            document.getElementsByClassName('song-card')[0].classList.add("selected-card");
+          if (document.getElementsByClassName('song-card').length != 0 && document.querySelector('.song-card').children[1].firstElementChild.innerText.toLowerCase()==currentSrc.split('.mp3')[0].toLowerCase()) {
+            document.querySelector('.song-card').classList.add("selected-card");
           }
           icon.src = "/resources/SVGS/pause-stroke-rounded.svg";
           currentLi.querySelector(".playbutton img").src = "/resources/SVGS/pause-stroke-rounded.svg";
@@ -1440,7 +1574,7 @@ function mainLaptop() {
           currentSong.pause();
           currentSongLi.classList.remove("selected");
           if (document.getElementsByClassName('song-card').length != 0) {
-            document.getElementsByClassName('song-card')[0].classList.remove("selected-card");
+            document.querySelector('.song-card').classList.remove("selected-card");
           }
           icon.src = "/resources/SVGS/play-stroke-rounded.svg";
           currentLi.querySelector(".playbutton").firstElementChild.src = "/resources/SVGS/play-circle-svgrepo-com.svg";
@@ -1491,8 +1625,8 @@ function mainLaptop() {
           prevLi.querySelector(".playbutton img").src = "/resources/SVGS/play-circle-svgrepo-com.svg";
           document.querySelector('.Play').children[0].src = '/resources/SVGS/play-stroke-rounded.svg';
           rocker.style.width = '0%';
-          document.getElementsByClassName("selected-card")[0].classList.remove("selected-card");
-          document.getElementById("card-listing-ul").getElementsByClassName("selected-list")[0].classList.remove("selected-list");
+          document.querySelector(".selected-card").classList.remove("selected-card");
+          document.getElementById("card-listing-ul").querySelector(".selected-list").classList.remove("selected-list");
         }
       });
 
@@ -1536,22 +1670,22 @@ function mainLaptop() {
       document.getElementById("song-about").textContent = "NO SONG LOADED !!!!";
     }
 
-    document.getElementsByClassName("search")[0].addEventListener("click", () => {
-      document.getElementsByClassName("home-page")[0].style.display = "none";
-      document.getElementsByClassName("home")[0].style.color = "#b3b3b3";
-      document.getElementsByClassName("search-html")[0].style.display = "block";
-      document.getElementsByClassName("search")[0].style.color = "#169b3a";
+    document.querySelector(".search").addEventListener("click", () => {
+      document.querySelector(".home-page").style.display = "none";
+      document.querySelector(".home").style.color = "#b3b3b3";
+      document.querySelector(".search-html").style.display = "block";
+      document.querySelector(".search").style.color = "#169b3a";
     })
-    document.getElementsByClassName("home")[0].addEventListener("click", () => {
-      document.getElementsByClassName("home-page")[0].style.display = "block";
-      document.getElementsByClassName("home")[0].style.color = "#169b3a";
-      document.getElementsByClassName("search-html")[0].style.display = "none";
-      document.getElementsByClassName("search")[0].style.color = "#b3b3b3";
+    document.querySelector(".home").addEventListener("click", () => {
+      document.querySelector(".home-page").style.display = "block";
+      document.querySelector(".home").style.color = "#169b3a";
+      document.querySelector(".search-html").style.display = "none";
+      document.querySelector(".search").style.color = "#b3b3b3";
     })
     document.getElementById('searchbox').addEventListener('input', () => { searching() });
     document.getElementById('myRange').addEventListener('input', (e) => { volumeController(e) });
-    document.getElementsByClassName('Next')[0].addEventListener('click', () => { setupNextButton() })
-    document.getElementsByClassName('previous')[0].addEventListener('click', () => { setupPrevButton() })
+    document.querySelector('.Next').addEventListener('click', () => { setupNextButton() })
+    document.querySelector('.previous').addEventListener('click', () => { setupPrevButton() })
     init();
 
   }
