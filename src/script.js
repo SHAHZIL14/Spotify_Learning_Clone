@@ -80,11 +80,11 @@ function mainMobile() {
     function showLoader() {
       document.getElementById("loader-overlay")?.classList.add("show");
     }
-    
+
     function hideLoader() {
       document.getElementById("loader-overlay")?.classList.remove("show");
     }
-    
+
     function renderSongList() {
       const songListEl = document.querySelector(".songlist ul");
       songListEl.innerHTML = "";
@@ -483,8 +483,8 @@ function mainMobile() {
         } else {
           console.warn("Missing artist or poster at index", i);
         }
-        currentCard.addEventListener('click',()=>{
-          alert('LogIn for personalize daily mix.');
+        currentCard.addEventListener('click', () => {
+          alert('LogIn for personalized daily mix.');
         })
       }
     }
@@ -509,7 +509,7 @@ function mainMobile() {
         song.songName.toLowerCase().startsWith(currentInput)
       );
 
-      if(matchingSongList.length==0){
+      if (matchingSongList.length == 0) {
         matchingSongList = data.filter(song =>
           song.songName.toLowerCase().includes(currentInput)
         );
@@ -519,9 +519,9 @@ function mainMobile() {
         artist.name.toLowerCase().startsWith(currentInput)
       );
 
-      if(matchingArtistList.length==0){
+      if (matchingArtistList.length == 0) {
         matchingArtistList = artistData.filter(artist =>
-        artist.name.toLowerCase().includes(currentInput))
+          artist.name.toLowerCase().includes(currentInput))
       }
 
       if (matchingSongList.length > 0) {
@@ -533,7 +533,6 @@ function mainMobile() {
         cardListRendering(matchingSongList);
         const topResult = matchingSongList[0];
         topResultCreateCard(topResult, 0);
-        console.log("if");
       } else if (matchingArtistList.length > 0) {
         defaultBox.style.display = "none";
         mainContent.style.display = "flex";
@@ -551,6 +550,15 @@ function mainMobile() {
     }
 
     function handleSongClick(index) {
+      if (index == currentSongIndex) {
+        if (currentSong.paused) {
+          alert("The song you choosed is already loaded on your track, control it via player");
+        }
+        else {
+          alert("The song is playing already");
+        }
+        return
+      }
       showLoader();
       document.querySelector('.container').style.marginBottom = "10%";
       if (currentSongLi) {
@@ -683,6 +691,7 @@ function mainMobile() {
       recentList.forEach(index => {
         const card = document.createElement("div");
         card.className = "song-card-div";
+        card.dataset.songId = index;
         card.innerHTML = `
               <div class="song-carding">
                 <div class="poster-song">
@@ -691,6 +700,9 @@ function mainMobile() {
                 <div class="about-song-card">${(songs[index].replace(".mp3", "").split("(")[0])}</div>
               </div>
             `;
+        card.addEventListener('click', function (event) {
+          handleSongClick(Number(event.currentTarget.dataset.songId));
+        })
         container.prepend(card);
       });
     }
@@ -1043,7 +1055,7 @@ function mainMobile() {
 
   }
   main()
-  console.log("mobile");
+
 }
 
 function mainLaptop() {
@@ -1364,8 +1376,8 @@ function mainLaptop() {
         } else {
           console.warn("Missing artist or poster at index", i);
         }
-        currentCard.addEventListener('click',()=>{
-          alert('LogIn for personalize daily mix.');
+        currentCard.addEventListener('click', () => {
+          alert('LogIn for personalized daily mix.');
         })
       }
     }
@@ -1390,7 +1402,7 @@ function mainLaptop() {
         song.songName.toLowerCase().startsWith(currentInput)
       );
 
-      if(matchingSongList.length==0){
+      if (matchingSongList.length == 0) {
         matchingSongList = data.filter(song =>
           song.songName.toLowerCase().includes(currentInput)
         );
@@ -1401,9 +1413,9 @@ function mainLaptop() {
         artist.name.toLowerCase().startsWith(currentInput)
       );
 
-      if(matchingArtistList.length==0){
+      if (matchingArtistList.length == 0) {
         matchingArtistList = artistData.filter(artist =>
-        artist.name.toLowerCase().includes(currentInput))
+          artist.name.toLowerCase().includes(currentInput))
       }
 
 
@@ -1434,14 +1446,15 @@ function mainLaptop() {
     }
 
     function handleSongClick(index) {
-      if(index==currentSongIndex){
-        if(currentSong.paused){
+      if (index == currentSongIndex) {
+        if (currentSong.paused) {
           alert("The song you choosed is already loaded on your track, control it via player");
         }
-        else{
+        else {
           alert("The song is playing already");
         }
-        return}
+        return
+      }
       if (currentSongLi) {
         currentSongLi.classList.remove("selected-list");
       }
@@ -1553,7 +1566,7 @@ function mainLaptop() {
         if (isPaused) {
           currentSong.play();
           currentSongLi.classList.add("selected");
-          if (document.getElementsByClassName('song-card').length != 0 && document.querySelector('.song-card').children[1].firstElementChild.innerText.toLowerCase()==currentSrc.split('.mp3')[0].toLowerCase()) {
+          if (document.getElementsByClassName('song-card').length != 0 && document.querySelector('.song-card').children[1].firstElementChild.innerText.toLowerCase() == currentSrc.split('.mp3')[0].toLowerCase()) {
             document.querySelector('.song-card').classList.add("selected-card");
           }
           icon.src = "/resources/SVGS/pause-stroke-rounded.svg";
@@ -1690,7 +1703,7 @@ function mainLaptop() {
 
   }
   main()
-  console.log("laptop");
+
 }
 
 function indexFunction() {
