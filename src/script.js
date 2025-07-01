@@ -24,7 +24,7 @@ function mainMobile() {
     }
 
     function wishingUser() {
-      const time = new Date().toLocaleTimeString();
+      const time = new Date().toLocaleTimeString('en-IN', { timeZone: 'Asia/Kolkata' }).toUpperCase();
       let currentHour = Number(time.split(':')[0]);
       const welcomeWish = time.includes("PM") ?
         (currentHour <= 4 || currentHour == 12) ?
