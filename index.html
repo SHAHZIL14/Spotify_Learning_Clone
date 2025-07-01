@@ -10,7 +10,7 @@
     <link rel="icon" type="image/x-icon" href="resources/Fav icon/icons8-spotify-96-removebg-preview.png" />
     <style>
         #loader-overlay {
-            position: fixed;
+            position: absolute;
             top: 0;
             left: 0;
             right: 0;
@@ -231,7 +231,10 @@
                     <p>sorry!!, no appropriate result found.</p>
                 </div>
                 <div class="main-content">
-                    <div id="searchup">
+                    <div id="searchLoaderOverlay">
+                        <div id="searchLoader"></div>
+                    </div>
+                    <div id="searchup">           
                         <div id="topResultingNew" class="top-result main-content-section">
                             <h2 class="Headings">Top results</h2>
                             <div id="grandParent"></div>
@@ -256,11 +259,15 @@
     <!-- footer-starts -->
     <div id="mobileFooter">
         <div class="footer" id="player-page">
+            <!-- loader-starts -->
+            <div id="loaderFooter"></div>
+            <!-- loader-ends -->
             <div class="sections" id="song-about">
                 No Song Loaded!!!
             </div>
             <div class="sections" id="seeksection">
                 <div class="song-navigation">
+                    <div id="controllerLoader"></div>
                     <div class="svgs shuffle hover hide"><img src="resources/SVGS/shuffle.svg" alt="" />
                     </div>
                     <div class="svgs previous hover hide"><img src="resources/SVGS/previous.svg" alt="" />

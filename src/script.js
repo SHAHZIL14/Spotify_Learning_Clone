@@ -42,9 +42,23 @@ function mainMobile() {
       document.getElementById("statusWishes").children[0].innerText = welcomeWish;
     }
 
-    function playSong(track) {
-      currentSong.src = `/resources/Songs/${track}`;
-      currentSong.play();
+    async function playSong(track) {
+      return new Promise((resolve, reject) => {
+        try {
+          currentSong.src = `/resources/Songs/${track}`;
+          currentSong.play()
+            .then(() => {
+              resolve(200);
+            })
+            .catch(() => {
+              reject(400);
+            })
+        } catch (error) {
+          console.log("Playback Failed :", error);
+          reject(404);
+        }
+      })
+
     }
 
     function loadingWindowFunctions() {
@@ -79,10 +93,42 @@ function mainMobile() {
 
     function showLoader() {
       document.getElementById("loader-overlay")?.classList.add("show");
+      document.querySelector('.search-html').appendChild(document.getElementById("loader-overlay"));
     }
 
     function hideLoader() {
       document.getElementById("loader-overlay")?.classList.remove("show");
+    }
+    
+    function showFooterLoader() {
+      document.getElementById('loaderFooter').style.display = "block";
+      console.log("showing");
+    }
+    
+    function showSearchLoader(){
+      document.getElementById('searchLoaderOverlay').style.display="block";
+    }
+
+    function hideSearchLoader(){
+      document.getElementById('searchLoaderOverlay').style.display="none";
+    }
+
+    function showControllerLoader() {
+      if (document.querySelector('#controllerLoader')) {
+        document.getElementById('controllerLoader').style.display = "block";
+      }
+    }
+
+
+    function hideControllerLoader() {
+      if (document.querySelector('#controllerLoader')) {
+        document.getElementById('controllerLoader').style.display = "none";
+      }
+    }
+
+    function hideFooterLoader() {
+      document.getElementById('loaderFooter').style.display = "none";
+      console.log("Hiding");
     }
 
     function renderSongList() {
@@ -263,10 +309,12 @@ function mainMobile() {
         let clickedSongName = e.target.parentElement.parentElement.children[0].innerText.concat(".mp3");
         data.forEach((eachSongObject) => {
           if (clickedSongName == eachSongObject.songName) {
-            return handleSongClick(eachSongObject.id);
+            handleSongClick(eachSongObject.id)
+              .then(() => {
+                document.getElementsByClassName('song-card')[0].classList.add("selected-card");
+              })
           }
         })
-        document.getElementsByClassName('song-card')[0].classList.add("selected-card");
       });
 
       let songCardText = parentDiv.children[1].children[0].innerText;
@@ -348,7 +396,7 @@ function mainMobile() {
     let renderToken = 0;
 
     async function cardListRendering(filteredArray) {
-      showLoader();
+      showSearchLoader();
       const ul = document.getElementById('card-listing-ul');
       if (!ul) return;
 
@@ -390,7 +438,12 @@ function mainMobile() {
       } catch (error) {
         console.error("Error rendering cards:", error);
       }
-      hideLoader();
+      const images = document.querySelector('.search-html').querySelectorAll("img");
+      const imagePromises = Array.from(images).map(img =>
+        img.complete ? Promise.resolve() : new Promise(resolve => img.onload = img.onerror = resolve)
+      );
+      await Promise.all(imagePromises);
+      hideSearchLoader();
     }
 
     let cardRenderIndex = 0;
@@ -550,25 +603,91 @@ function mainMobile() {
     }
 
     function handleSongClick(index) {
-      if (index == currentSongIndex) {
-        if (currentSong.paused) {
-          alert("The song you choosed is already loaded on your track, control it via player");
+      return new Promise((resolve, reject) => {
+        try {
+          showFooterLoader();
+          showControllerLoader();
+          if (index == currentSongIndex) {
+            if (currentSong.paused) {
+              alert("The song you choosed is already loaded on your track, control it via player");
+            }
+            else {
+              alert("The song is playing already");
+            }
+            return
+          }
+          currentSrc = songs[index];
+          document.querySelector('.container').style.marginBottom = "10%";
+          if (currentSongLi) {
+            currentSongLi.classList.remove("selected-list");
+          }
+          if (currentSongIndex !== null && !loop) {
+            const prevLi = document.getElementById(currentSongIndex);
+            prevLi.classList.remove("selected");
+            prevLi.querySelector(".playbutton img").src = "/resources/SVGS/play-circle-svgrepo-com.svg";
+          }
+          playSong(currentSrc)
+            .then(() => {
+              updateUI(index);
+              updateSongAbout(index);
+              updateFooter(updateControllerPage);
+              updateRecentList(index);
+              if (document.getElementsByClassName('song-card').length != 0) {
+                let songCardText = document.getElementsByClassName('song-card')[0].children[1].children[0].innerText;
+                let currentSongName = (currentSong.src.toString()).split("/")[5].replaceAll("%20", " ").replaceAll(".mp3", "");
+                if (songCardText != currentSongName) {
+                  document.getElementsByClassName('song-card')[0].classList.remove('selected-card');
+                }
+                else {
+                  document.getElementsByClassName('song-card')[0].classList.add('selected-card');
+                }
+              }
+              if (document.getElementsByClassName('card-list-li').length != 0) {
+                let currentSongName = (currentSong.src.toString()).split("/")[5].replaceAll("%20", " ").replaceAll(".mp3", "");
+                Array.from(document.getElementsByClassName('card-list-li')).forEach((currentSongList) => {
+                  if (currentSongList.children[0].children[1].children[0].innerText == currentSongName) {
+                    currentSongList.classList.add("selected-list");
+                  }
+                  else {
+                    currentSongList.classList.remove("selected-list");
+                  }
+                })
+              }
+              hideFooterLoader();
+              hideControllerLoader();
+              resolve();
+            })
+          playButton.querySelector("img").src = "/resources/SVGS/pause.svg";
+        } catch (error) {
+          reject(error);
         }
-        else {
-          alert("The song is playing already");
-        }
-        return
+      })
+    }
+
+    function updateSongAbout(index) {
+      if (!document.getElementById('song-name')) {
+        document.getElementById("song-about").innerHTML = `
+        <div id="song-name" data-song-id = ${index}>
+          <div class="poster">
+            <img loading="lazy" class="svgs1" src="/resources/Posters/${data[index].poster}" alt="">
+          </div>
+          <div class="marquee-container content">
+            <div class="song-name-poster marquee-text">${songs[index].replace(".mp3", "")}</div>
+            <div class="marquee-text artist-name-poster">${artistNames[index]}</div>
+          </div>
+        </div>
+      `;
       }
-      showLoader();
-      document.querySelector('.container').style.marginBottom = "10%";
-      if (currentSongLi) {
-        currentSongLi.classList.remove("selected-list");
+      else {
+        let parent = document.querySelector('#song-name');
+        parent.dataset.songid = index;
+        parent.firstElementChild.firstElementChild.src = `/resources/Posters/${data[index].poster}`;
+        parent.children[1].children[0].innerText = songs[index].replace(".mp3", "");
+        parent.children[1].children[1].innerText = artistNames[index];
       }
-      if (currentSongIndex !== null && !loop) {
-        const prevLi = document.getElementById(currentSongIndex);
-        prevLi.classList.remove("selected");
-        prevLi.querySelector(".playbutton img").src = "/resources/SVGS/play-circle-svgrepo-com.svg";
-      }
+    }
+
+    function updateUI(index) {
       currentSongIndex = index;
       currentSongLi = document.getElementById(index);
       currentSongLi.classList.add("selected-list");
@@ -576,48 +695,7 @@ function mainMobile() {
       currentSongLi.querySelector(".playbutton img").src = "/resources/SVGS/pause.svg";
       document.getElementById('mobilePlayButton').firstElementChild.src = "/resources/SVGS/pause-footer.svg";
       currentSongLi.querySelector(".playbutton img").style.filter = "invert(1)";
-      currentSrc = songs[index];
-      playSong(currentSrc);
-      updateSongAbout(index);
-      updateFooter(updateControllerPage);
-      updateRecentList(index);
-      if (document.getElementsByClassName('song-card').length != 0) {
-        let songCardText = document.getElementsByClassName('song-card')[0].children[1].children[0].innerText;
-        let currentSongName = (currentSong.src.toString()).split("/")[5].replaceAll("%20", " ").replaceAll(".mp3", "");
-        if (songCardText != currentSongName) {
-          document.getElementsByClassName('song-card')[0].classList.remove('selected-card');
-        }
-        else {
-          document.getElementsByClassName('song-card')[0].classList.add('selected-card');
-        }
-      }
-      if (document.getElementsByClassName('card-list-li').length != 0) {
-        let currentSongName = (currentSong.src.toString()).split("/")[5].replaceAll("%20", " ").replaceAll(".mp3", "");
-        Array.from(document.getElementsByClassName('card-list-li')).forEach((currentSongList) => {
-          if (currentSongList.children[0].children[1].children[0].innerText == currentSongName) {
-            currentSongList.classList.add("selected-list");
-          }
-          else {
-            currentSongList.classList.remove("selected-list");
-          }
-        })
-      }
-      playButton.querySelector("img").src = "/resources/SVGS/pause.svg";
-      hideLoader();
-    }
 
-    function updateSongAbout(index) {
-      document.getElementById("song-about").innerHTML = `
-      <div id="song-name" data-song-id = ${index}>
-        <div class="poster">
-          <img loading="lazy" class="svgs1" src="/resources/Posters/${data[index].poster}" alt="">
-        </div>
-        <div class="marquee-container content">
-          <div class="song-name-poster marquee-text">${songs[index].replace(".mp3", "")}</div>
-          <div class="marquee-text artist-name-poster">${artistNames[index]}</div>
-        </div>
-      </div>
-    `;
     }
 
     async function getDominantColor(imgElement) {
@@ -661,7 +739,7 @@ function mainMobile() {
         callBackF();
         let footer = document.getElementsByClassName("footer")[0];
         let player = document.getElementsByClassName('player')[0];
-        let img = footer.children[0].children[0].children[0].children[0];
+        let img = footer.children[1].children[0].children[0].children[0];
         getDominantColor(img)
           .then((rgb) => {
             const newColor = normalizeColor(rgb[0], rgb[1], rgb[2], 0.3, 0.6);
@@ -715,7 +793,6 @@ function mainMobile() {
         seekParent.setAttribute('class', 'seek-parent');
         let seekSection = document.getElementById('seeksection');
         let seek = (document.getElementsByClassName('seek')[0]);
-
         let seekRocker = document.getElementById('seekRocker');
         var dummySeekBar = document.createElement('div');
         dummySeekBar.setAttribute('id', 'dummySeekBar');
@@ -973,7 +1050,7 @@ function mainMobile() {
       })
     }
 
-    function closeControllerPage() {
+    function openControllerPage() {
       document.getElementsByClassName('footer')[0].addEventListener('click', () => {
         document.getElementsByClassName('player')[0].style.display = "flex";
         document.body.classList.add("lock-scroll");
@@ -1045,7 +1122,7 @@ function mainMobile() {
       renderDailyMix();
       closeSide();
       appReloader();
-      closeControllerPage();
+      openControllerPage();
       actualClose();
       closeSideWhenTouchedOutside();
       extraEssentialCalls();
