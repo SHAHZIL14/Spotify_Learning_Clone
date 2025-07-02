@@ -191,32 +191,48 @@ function mainMobile() {
     }
 
     function Navigation(page) {
+      if (!iconPageMapping[page]) {
+        console.warn(`Navigation: Invalid page "${page}" passed`);
+        return;
+      }
+    
       const navItem = Array.from((document.getElementsByClassName('navbar'))[0].children);
       navItem.push(document.getElementsByClassName('footer')[0]);
+    
       navItem.forEach((currentNavItem) => {
         if (currentNavItem.id != "premium") {
-          if (page != "library" && document.getElementsByClassName(iconPageMapping[currentNavItem.id]["page"])[0]) {
-
-            document.getElementsByClassName(iconPageMapping[currentNavItem.id]["page"])[0].style.display = "none";
+          const mapping = iconPageMapping[currentNavItem.id];
+          if (page != "library" && mapping && document.getElementsByClassName(mapping.page)[0]) {
+            document.getElementsByClassName(mapping.page)[0].style.display = "none";
           }
           if (currentNavItem.id != "player-page") {
             currentNavItem.classList.remove('active');
             currentNavItem.firstElementChild.firstElementChild.classList.remove('active-path');
           }
         }
-      })
+      });
+    
       if (page != "premium") {
-        document.getElementsByClassName(iconPageMapping[page]['page'])[0].style.display = iconPageMapping[page]['display'];
+        const mapping = iconPageMapping[page];
+        const target = document.getElementsByClassName(mapping.page)[0];
+        if (target) {
+          target.style.display = mapping.display;
+        }
         if (page != 'player-page') {
-          document.getElementById(page).classList.add('active');
-          document.getElementById(page).firstElementChild.firstElementChild.classList.add('active-path');
+          const element = document.getElementById(page);
+          if (element) {
+            element.classList.add('active');
+            element.firstElementChild.firstElementChild.classList.add('active-path');
+          }
         }
       }
+    
       window.scrollTo({
         top: 0,
         behavior: 'smooth'
       });
     }
+    
 
     function navigateTo(page) {
       if (page == "premium") return;
