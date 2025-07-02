@@ -119,7 +119,6 @@ function mainMobile() {
       }
     }
 
-
     function hideControllerLoader() {
       if (document.querySelector('#controllerLoader')) {
         document.getElementById('controllerLoader').style.display = "none";
@@ -129,6 +128,14 @@ function mainMobile() {
     function hideFooterLoader() {
       document.getElementById('loaderFooter').style.display = "none";
       console.log("Hiding");
+    }
+     
+    function showTopResultLoader(){
+      document.getElementById('topResultLoader').style.display = 'block';
+    }
+
+    function hideTopResultLoader(){
+      document.getElementById('topResultLoader').style.display = 'none';
     }
 
     function renderSongList() {
@@ -290,6 +297,7 @@ function mainMobile() {
               <h1 class="gaane marquee-text">${song.songName.replace(".mp3", "")}</h1>
               <div class="artist-name marquee-container">
                   <div class="marquee-text" id="topResultCardArtistName">${song.artist} </div>
+                  <div id="topResultLoader"></div>
                   <span id="playBtn" class="Play-now" id="${index}" style="float: right;">Play Now</span>
               </div>
   
@@ -605,9 +613,13 @@ function mainMobile() {
     function handleSongClick(index) {
       return new Promise((resolve, reject) => {
         try {
+          showTopResultLoader();
           showFooterLoader();
           showControllerLoader();
           if (index == currentSongIndex) {
+          hideFooterLoader();
+          hideControllerLoader();
+          hideTopResultLoader();
             if (currentSong.paused) {
               alert("The song you choosed is already loaded on your track, control it via player");
             }
@@ -655,6 +667,7 @@ function mainMobile() {
               }
               hideFooterLoader();
               hideControllerLoader();
+              hideTopResultLoader();
               resolve();
             })
           playButton.querySelector("img").src = "/resources/SVGS/pause.svg";

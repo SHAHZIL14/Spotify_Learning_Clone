@@ -30,6 +30,21 @@
         border-radius: 3px;
     }
 
+    #topResultLoader {
+        display: none;
+        background: rgb(24 24 24 / 41%);
+        height: 16%;
+        width: 24%;
+        position: absolute;
+        border: 3px solid #ffffff00;
+        top: bottom;
+        bottom: 14%;
+        right: 5%;
+        border-radius: 20px;
+        animation: loaderFooter ease-out infinite 0.5s;
+        z-index: 5;
+    }
+
     #controllerLoader {
         display: block;
         height: 81%;
@@ -1636,6 +1651,7 @@
         width: 3px;
         border-radius: 3px;
     }
+
     #controllerLoader {
         display: block;
         height: 81%;
