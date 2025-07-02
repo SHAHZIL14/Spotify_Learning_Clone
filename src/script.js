@@ -76,6 +76,8 @@ function mainMobile() {
         if (document.querySelector('.artist-float-card') && document.querySelector('.artist-float-card').style.display != "none") {
           document.querySelector('.artist-float-card').style.display = "none";
           document.querySelector('.container').style.filter = "brightness(100%)";
+          document.querySelector('.container').style.opacity = "100%";
+
         }
 
       });
@@ -99,17 +101,17 @@ function mainMobile() {
     function hideLoader() {
       document.getElementById("loader-overlay")?.classList.remove("show");
     }
-    
+
     function showFooterLoader() {
       document.getElementById('loaderFooter').classList.add('animateLoader');
     }
-    
-    function showSearchLoader(){
-      document.getElementById('searchLoaderOverlay').style.display="block";
+
+    function showSearchLoader() {
+      document.getElementById('searchLoaderOverlay').style.display = "block";
     }
 
-    function hideSearchLoader(){
-      document.getElementById('searchLoaderOverlay').style.display="none";
+    function hideSearchLoader() {
+      document.getElementById('searchLoaderOverlay').style.display = "none";
     }
 
     function showControllerLoader() {
@@ -127,12 +129,12 @@ function mainMobile() {
     function hideFooterLoader() {
       document.getElementById('loaderFooter').classList.remove('animateLoader');
     }
-     
-    function showTopResultLoader(){
+
+    function showTopResultLoader() {
       document.querySelector('.song-card').classList.add('animateLoader');
     }
 
-    function hideTopResultLoader(){
+    function hideTopResultLoader() {
       document.querySelector('.song-card').classList.remove('animateLoader');
     }
 
@@ -345,8 +347,8 @@ function mainMobile() {
       wrapper.style.position = 'fixed';
       wrapper.style.top = '0';
       wrapper.style.left = '0';
-      wrapper.style.width = '100vw';
-      wrapper.style.height = '100vh';
+      wrapper.style.width = '100%';
+      wrapper.style.height = '100%';
       wrapper.style.zIndex = '999';
       wrapper.style.display = 'flex';
       wrapper.style.alignItems = 'center';
@@ -378,7 +380,10 @@ function mainMobile() {
       wrapper.appendChild(artistDescriptionCard);
 
       const container = document.querySelector('.container');
-      if (container) container.style.filter = "brightness(20%)";
+      if (container) {
+        container.style.filter = "brightness(20%)";
+        container.style.opacity = "0%";
+      }
 
       body.appendChild(wrapper);
       document.body.style.overflow = "hidden";
@@ -386,14 +391,20 @@ function mainMobile() {
       document.getElementById('close-card').addEventListener('click', () => {
         wrapper.remove();
         document.body.style.overflow = "";
-        if (container) container.style.filter = "brightness(100%)";
+        if (container) {
+          container.style.filter = "brightness(100%)";
+          container.style.opacity = "100%";
+        }
       });
 
       wrapper.addEventListener('click', (e) => {
         if (!artistDescriptionCard.contains(e.target)) {
           wrapper.remove();
           document.body.style.overflow = "";
-          if (container) container.style.filter = "brightness(100%)";
+          if (container){ 
+          container.style.filter = "brightness(100%)";
+          container.style.opacity = "100%";
+        }
         }
       });
     }
@@ -613,9 +624,9 @@ function mainMobile() {
           showFooterLoader();
           showControllerLoader();
           if (index == currentSongIndex) {
-          hideFooterLoader();
-          hideControllerLoader();
-          hideTopResultLoader();
+            hideFooterLoader();
+            hideControllerLoader();
+            hideTopResultLoader();
             if (currentSong.paused) {
               alert("The song you choosed is already loaded on your track, control it via player");
             }
@@ -625,8 +636,8 @@ function mainMobile() {
             return
           }
           currentSrc = songs[index];
-          if(document.querySelector('.gaane').innerText.trim().toLowerCase()==currentSrc.split('.mp3')[0].trim().toLowerCase()){
-          showTopResultLoader();
+          if (document.querySelector('.gaane').innerText.trim().toLowerCase() == currentSrc.split('.mp3')[0].trim().toLowerCase()) {
+            showTopResultLoader();
           }
           document.querySelector('.container').style.marginBottom = "10%";
           if (currentSongLi) {
@@ -1362,6 +1373,7 @@ function mainLaptop() {
       document.getElementById('close-card').addEventListener('click', () => {
         document.querySelector('.artist-float-card').remove();
         document.querySelector('.container').style.filter = "brightness(100%)";
+        document.querySelector('.container').style.opacity = "100%";
       });
     }
 
