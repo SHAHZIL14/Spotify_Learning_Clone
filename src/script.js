@@ -101,8 +101,7 @@ function mainMobile() {
     }
     
     function showFooterLoader() {
-      document.getElementById('loaderFooter').style.display = "block";
-      console.log("showing");
+      document.getElementById('loaderFooter').classList.add('animateLoader');
     }
     
     function showSearchLoader(){
@@ -126,16 +125,15 @@ function mainMobile() {
     }
 
     function hideFooterLoader() {
-      document.getElementById('loaderFooter').style.display = "none";
-      console.log("Hiding");
+      document.getElementById('loaderFooter').classList.remove('animateLoader');
     }
      
     function showTopResultLoader(){
-      document.getElementById('topResultLoader').style.display = 'block';
+      document.querySelector('.song-card').classList.add('animateLoader');
     }
 
     function hideTopResultLoader(){
-      document.getElementById('topResultLoader').style.display = 'none';
+      document.querySelector('.song-card').classList.remove('animateLoader');
     }
 
     function renderSongList() {
@@ -297,7 +295,6 @@ function mainMobile() {
               <h1 class="gaane marquee-text">${song.songName.replace(".mp3", "")}</h1>
               <div class="artist-name marquee-container">
                   <div class="marquee-text" id="topResultCardArtistName">${song.artist} </div>
-                  <div id="topResultLoader"></div>
                   <span id="playBtn" class="Play-now" id="${index}" style="float: right;">Play Now</span>
               </div>
   
@@ -613,7 +610,6 @@ function mainMobile() {
     function handleSongClick(index) {
       return new Promise((resolve, reject) => {
         try {
-          showTopResultLoader();
           showFooterLoader();
           showControllerLoader();
           if (index == currentSongIndex) {
@@ -629,6 +625,9 @@ function mainMobile() {
             return
           }
           currentSrc = songs[index];
+          if(document.querySelector('.gaane').innerText.trim().toLowerCase()==currentSrc.split('.mp3')[0].trim().toLowerCase()){
+          showTopResultLoader();
+          }
           document.querySelector('.container').style.marginBottom = "10%";
           if (currentSongLi) {
             currentSongLi.classList.remove("selected-list");
@@ -900,6 +899,7 @@ function mainMobile() {
 
     function setupPlayFooter() {
       document.getElementById('mobilePlayButton').addEventListener('click', (event) => {
+        console.log("pressed");
         event.stopPropagation();
         playButton.click();
         if (currentSong.paused) {
